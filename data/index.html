@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>bkpvdsply</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="locxter" />
+        <meta name="description" content="This is a bike POV display using readily available parts." />
+        <link rel="stylesheet" href="styles/dark.min.css" />
+    </head>
+    <body>
+        <noscript>
+            <h1>Enable JavaScript to use this site.</h1>
+        </noscript>
+        <header>
+            <h1>bkpvdsply</h1>
+        </header>
+        <main>
+            <h2>Image upload</h2>
+            <p>
+                <label for="internal-wheel-diameter">Internal wheel diameter in mm:</label>
+                <br />
+                <input id="internal-wheel-diameter" type="number" min="0" max="1000" value="600" />
+            </p>
+            <p>
+                <label for="hub-diameter">Hub diameter in mm:</label>
+                <br />
+                <input id="hub-diameter" type="number" min="0" max="100" value="80" />
+            </p>
+            <p>
+                <label for="image">Image:</label>
+                <br />
+                <input id="image" type="file" accept="image/*" />
+            </p>
+            <p>
+                <button id="convert-image">Convert image</button>
+            </p>
+            <p>
+                Original image:
+                <br />
+                <canvas id="original-image"></canvas>
+            </p>
+            <p>
+                bkpvdsply image:
+                <br />
+                <canvas id="bkpvdsply-image"></canvas>
+            </p>
+            <p>
+                <label for="slot">Slot:</label>
+                <br />
+                <select id="slot">
+                    <option value="0" selected>Slot 1</option>
+                    <option value="1">Slot 2</option>
+                    <option value="2">Slot 3</option>
+                    <option value="3">Slot 4</option>
+                    <option value="4">Slot 5</option>
+                    <option value="5">Slot 6</option>
+                    <option value="6">Slot 7</option>
+                    <option value="7">Slot 8</option>
+                </select>
+            </p>
+            <p>
+                <button id="upload-image">Upload image to bkpvdsply</button>
+            </p>
+            <p id="progress"></p>
+            <h2>Settings</h2>
+            <p>
+                <label for="brightness">Brightness in %:</label>
+                <br />
+                <input id="brightness" type="number" min="0" max="100" value="50" />
+            </p>
+            <p>
+                <label for="display-mode">Display mode:</label>
+                <br />
+                <select id="display-mode">
+                    <option value="0" selected>Only show slot 1</option>
+                    <option value="1">Only show slot 2</option>
+                    <option value="2">Only show slot 3</option>
+                    <option value="3">Only show slot 4</option>
+                    <option value="4">Only show slot 5</option>
+                    <option value="5">Only show slot 6</option>
+                    <option value="6">Only show slot 7</option>
+                    <option value="7">Only show slot 8</option>
+                    <option value="8">Animate through slots 1 and 2</option>
+                    <option value="9">Animate through slots 2 and 3</option>
+                    <option value="10">Animate through slots 3 and 4</option>
+                    <option value="11">Animate through slots 4 and 5</option>
+                    <option value="12">Animate through slots 5 and 6</option>
+                    <option value="13">Animate through slots 6 and 7</option>
+                    <option value="14">Animate through slots 7 and 8</option>
+                    <option value="15">Animate through slots 8 and 1</option>
+                </select>
+            </p>
+            <p>
+                <label for="animation-interval">Animation interval in ms:</label>
+                <br />
+                <input id="animation-interval" type="number" min="0" max="10000" value="1000" />
+            </p>
+            <p>
+                <button id="save-settings">Save settings</button>
+            </p>
+        </main>
+        <footer>
+            <p>2022 locxter</p>
+        </footer>
+        <script src="scripts/index.js"></script>
+    </body>
+</html>
