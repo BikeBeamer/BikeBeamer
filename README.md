@@ -68,3 +68,4 @@ TODO
 
 - All angles used are in counted in degrees clockwise from 12 o'clock
 - All coordinate systems used have their origin at the bottom left
+- The LED strips are connected in clockwise direction

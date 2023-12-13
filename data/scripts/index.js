@@ -157,7 +157,7 @@ originalImage.addEventListener('load', () => {
 });
 // Handle upload image button
 uploadImageButton.addEventListener('click', () => {
-    if (slotInput.value && bikeBeamerImage[0][0]) {
+    if (slotInput.value && bikeBeamerImage[0][0] >= 0) {
         slot = parseInt(slotInput.value);
         alert('Please be patient, the upload will take about 2 minutes.');
         uploadImage(slot, bikeBeamerImage)
