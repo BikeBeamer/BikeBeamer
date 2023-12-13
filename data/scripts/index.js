@@ -7,8 +7,8 @@ let imageInput = document.getElementById('image');
 let convertImageButton = document.getElementById('convert-image');
 let originalImageCanvas = document.getElementById('original-image');
 let originalImageContext = originalImageCanvas.getContext('2d');
-let bkpvdsplyImageCanvas = document.getElementById('bkpvdsply-image');
-let bkpvdsplyImageContext = bkpvdsplyImageCanvas.getContext('2d');
+let bikeBeamerImageCanvas = document.getElementById('bikebeamer-image');
+let bikeBeamerImageContext = bikeBeamerImageCanvas.getContext('2d');
 let slotInput = document.getElementById('slot');
 let uploadImageButton = document.getElementById('upload-image');
 let progressLabel = document.getElementById('progress');
@@ -27,9 +27,9 @@ let internalWheelDiameter = 600;
 let hubDiameter = 80;
 let margin = (internalWheelDiameter / 2 - hubDiameter / 2 - LED_STRIP_LENGTH) / 2;
 let originalImage = new Image();
-let bkpvdsplyImage = new Array(360 * LED_COUNT);
-for (let i = 0; i < bkpvdsplyImage.length; i++) {
-    bkpvdsplyImage[i] = new Array(3);
+let bikeBeamerImage = new Array(360 * LED_COUNT);
+for (let i = 0; i < bikeBeamerImage.length; i++) {
+    bikeBeamerImage[i] = new Array(3);
 }
 let slot = 0;
 let brightness = 50;
@@ -103,14 +103,14 @@ originalImage.addEventListener('load', () => {
     // Update canvas size
     originalImageCanvas.width = internalWheelDiameter;
     originalImageCanvas.height = internalWheelDiameter;
-    bkpvdsplyImageCanvas.width = internalWheelDiameter;
-    bkpvdsplyImageCanvas.height = internalWheelDiameter;
+    bikeBeamerImageCanvas.width = internalWheelDiameter;
+    bikeBeamerImageCanvas.height = internalWheelDiameter;
     // Draw original image
     originalImageContext.drawImage(originalImage, 0, 0, internalWheelDiameter, internalWheelDiameter);
-    // Draw bkpvdsply background
-    bkpvdsplyImageContext.fillStyle = '#202b38';
-    bkpvdsplyImageContext.fillRect(0, 0, internalWheelDiameter, internalWheelDiameter);
-    // Draw bkpvdsply image and store the data for upload
+    // Draw BikeBeamer background
+    bikeBeamerImageContext.fillStyle = '#202b38';
+    bikeBeamerImageContext.fillRect(0, 0, internalWheelDiameter, internalWheelDiameter);
+    // Draw BikeBeamer image and store the data for upload
     for (let i = 0; i < 360; i++) {
         for (let j = 0; j < LED_COUNT; j++) {
             let x = Math.round(
@@ -123,20 +123,20 @@ originalImage.addEventListener('load', () => {
             );
             let pixel = originalImageContext.getImageData(x, internalWheelDiameter - y, 1, 1);
             pixel.data[3] = 255;
-            bkpvdsplyImageContext.putImageData(pixel, x, internalWheelDiameter - y);
-            bkpvdsplyImage[i * LED_COUNT + j][0] = pixel.data[0];
-            bkpvdsplyImage[i * LED_COUNT + j][1] = pixel.data[1];
-            bkpvdsplyImage[i * LED_COUNT + j][2] = pixel.data[2];
+            bikeBeamerImageContext.putImageData(pixel, x, internalWheelDiameter - y);
+            bikeBeamerImage[i * LED_COUNT + j][0] = pixel.data[0];
+            bikeBeamerImage[i * LED_COUNT + j][1] = pixel.data[1];
+            bikeBeamerImage[i * LED_COUNT + j][2] = pixel.data[2];
         }
     }
     URL.revokeObjectURL(this.src);
 });
 // Handle upload image button
 uploadImageButton.addEventListener('click', () => {
-    if (slotInput.value && bkpvdsplyImage[0][0]) {
+    if (slotInput.value && bikeBeamerImage[0][0]) {
         slot = parseInt(slotInput.value);
         alert('Please be patient, the upload will take about 2 minutes.');
-        uploadImage(slot, bkpvdsplyImage)
+        uploadImage(slot, bikeBeamerImage)
             .then(() => {
                 alert('Image successfully uploaded.');
             })
