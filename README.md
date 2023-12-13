@@ -39,7 +39,7 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 ### Software
 
 - [x] Implement customizable LED strip positions (relative to control board)
-- [ ] Allow the rotation direction to be reversed (when mounting on the other side)
+- [x] Allow the rotation direction to be reversed (when the control board back faces right)
 - [ ] Use LED trips on both sides to display the image
 - [ ] Allow the image to be mirror for the second side (useful for symbols and graphics, but not text)
 - [ ] Reduce storage size of images (ideally via file compression)

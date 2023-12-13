@@ -15,10 +15,11 @@ let progressLabel = document.getElementById('progress');
 let brightnessInput = document.getElementById('brightness');
 let displayModeInput = document.getElementById('display-mode');
 let animationIntervalInput = document.getElementById('animation-interval');
-let strip0PositionInput = document.getElementById('stip-0-position');
-let strip1PositionInput = document.getElementById('stip-1-position');
-let strip2PositionInput = document.getElementById('stip-2-position');
-let strip3PositionInput = document.getElementById('stip-3-position');
+let strip0PositionInput = document.getElementById('strip-0-position');
+let strip1PositionInput = document.getElementById('strip-1-position');
+let strip2PositionInput = document.getElementById('strip-2-position');
+let strip3PositionInput = document.getElementById('strip-3-position');
+let reverseDirectionInput = document.getElementById('reverse-direction');
 let saveSettingsButton = document.getElementById('save-settings');
 
 // LED related constants
@@ -43,6 +44,7 @@ let strip0Position = 0;
 let strip1Position = 90;
 let strip2Position = 180;
 let strip3Position = 270;
+let reverseDirection = false;
 
 // Function to upload the image angle by angle
 async function uploadImage(slot, image) {
@@ -83,7 +85,8 @@ async function saveSettings(
     strip0Position,
     strip1Position,
     strip2Position,
-    strip3Position
+    strip3Position,
+    reverseDirection
 ) {
     let data = new URLSearchParams();
     let response;
@@ -95,6 +98,7 @@ async function saveSettings(
     data.append('strip-1-position', strip1Position);
     data.append('strip-2-position', strip2Position);
     data.append('strip-3-position', strip3Position);
+    data.append('reverse-direction', reverseDirection === true ? 1 : 0);
     response = await fetch('http://192.168.0.1', {
         method: 'POST',
         body: data,
@@ -173,10 +177,11 @@ saveSettingsButton.addEventListener('click', () => {
         brightnessInput.value &&
         displayModeInput.value &&
         animationIntervalInput.value &&
-        strip0PositionInput.value >= 0 &&
+        strip0PositionInput.value &&
         strip1PositionInput.value &&
         strip2PositionInput.value &&
-        strip3PositionInput.value
+        strip3PositionInput.value &&
+        reverseDirectionInput.value
     ) {
         brightness = parseInt(brightnessInput.value);
         displayMode = parseInt(displayModeInput.value);
@@ -185,6 +190,7 @@ saveSettingsButton.addEventListener('click', () => {
         strip1Position = parseInt(strip1PositionInput.value);
         strip2Position = parseInt(strip2PositionInput.value);
         strip3Position = parseInt(strip3PositionInput.value);
+        reverseDirection = parseInt(reverseDirectionInput.value) ? true : false;
         saveSettings(
             brightness,
             displayMode,
@@ -192,7 +198,8 @@ saveSettingsButton.addEventListener('click', () => {
             strip0Position,
             strip1Position,
             strip2Position,
-            strip3Position
+            strip3Position,
+            reverseDirection
         )
             .then(() => {
                 alert('Settings successfully saved.');

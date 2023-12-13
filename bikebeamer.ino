@@ -41,6 +41,7 @@ int strip0Position = 0;
 int strip1Position = 90;
 int strip2Position = 180;
 int strip3Position = 270;
+bool reverseDirection = false;
 
 // Function to load the settings from storage into RAM
 void loadSettings();
@@ -196,6 +197,9 @@ void loop() {
     if (!isReceiving) {
         mpu.update();
         angle = ((int) round(mpu.getAccAngleX()) + 360) % 360;
+        if (reverseDirection) {
+            angle = 360 - angle;
+        }
         currentMicros = micros();
         // Calculate revolution period and update other data on every rotation when the user is pedalling
         if ((angle >= 353 || angle <= 7) && currentMicros - lastRotation >= 150000 &&
@@ -274,6 +278,8 @@ void loadSettings() {
             strip2Position = value;
         } else if (key == "strip-3-position") {
             strip3Position = value;
+        } else if (key == "reverse-direction") {
+            reverseDirection = value;
         }
     }
     file.close();
@@ -290,6 +296,7 @@ void saveSettings() {
     file.print("strip-1-position, " + String(strip1Position) + "\n");
     file.print("strip-2-position, " + String(strip2Position) + "\n");
     file.print("strip-3-position, " + String(strip3Position) + "\n");
+    file.print("reverse-direction, " + String(reverseDirection) + "\n");
     file.close();
 }
 
