@@ -38,7 +38,7 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 
 ### Software
 
-- [ ] Implement customizable LED strip positions (relative to control board)
+- [x] Implement customizable LED strip positions (relative to control board)
 - [ ] Allow the rotation direction to be reversed (when mounting on the other side)
 - [ ] Use LED trips on both sides to display the image
 - [ ] Allow the image to be mirror for the second side (useful for symbols and graphics, but not text)
@@ -63,3 +63,8 @@ TODO
 ## How to use it
 
 TODO
+
+## Developer notes
+
+- All angles used are in counted in degrees clockwise from 12 o'clock
+- All coordinate systems used have their origin at the bottom left

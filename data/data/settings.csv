@@ -2,3 +2,7 @@ Key:, Value:
 brightness, 128
 display-mode, 0
 animation-interval, 1000000
+strip-0-position, 0
+strip-1-position, 90
+strip-2-position, 180
+strip-3-position, 270

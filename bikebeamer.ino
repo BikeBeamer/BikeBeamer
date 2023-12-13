@@ -37,6 +37,10 @@ int virtualAngle = 0;
 int lastVirtualAngle = -1;
 bool isReceiving = false;
 bool isPaused = true;
+int strip0Position = 0;
+int strip1Position = 90;
+int strip2Position = 180;
+int strip3Position = 270;
 
 // Function to load the settings from storage into RAM
 void loadSettings();
@@ -222,21 +226,21 @@ void loop() {
             // Display an angle of the image
             if (virtualAngle != lastVirtualAngle) {
                 for (int i = 0; i < LED_COUNT; i++) {
-                    byte r = images[currentMemorySlot][(virtualAngle * LED_COUNT) + i][0];
-                    byte g = images[currentMemorySlot][(virtualAngle * LED_COUNT) + i][1];
-                    byte b = images[currentMemorySlot][(virtualAngle * LED_COUNT) + i][2];
+                    byte r = images[currentMemorySlot][(((virtualAngle + strip0Position) % 360) * LED_COUNT) + i][0];
+                    byte g = images[currentMemorySlot][(((virtualAngle + strip0Position) % 360) * LED_COUNT) + i][1];
+                    byte b = images[currentMemorySlot][(((virtualAngle + strip0Position) % 360) * LED_COUNT) + i][2];
                     neopixels.setPixelColor(i, neopixels.Color(r, g, b));
-                    r = images[currentMemorySlot][(((virtualAngle + 90) % 360) * LED_COUNT) + i][0];
-                    g = images[currentMemorySlot][(((virtualAngle + 90) % 360) * LED_COUNT) + i][1];
-                    b = images[currentMemorySlot][(((virtualAngle + 90) % 360) * LED_COUNT) + i][2];
+                    r = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][0];
+                    g = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][1];
+                    b = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][2];
                     neopixels.setPixelColor(i + LED_COUNT, neopixels.Color(r, g, b));
-                    r = images[currentMemorySlot][(((virtualAngle + 180) % 360) * LED_COUNT) + i][0];
-                    g = images[currentMemorySlot][(((virtualAngle + 180) % 360) * LED_COUNT) + i][1];
-                    b = images[currentMemorySlot][(((virtualAngle + 180) % 360) * LED_COUNT) + i][2];
+                    r = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][0];
+                    g = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][1];
+                    b = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][2];
                     neopixels.setPixelColor(i + (LED_COUNT * 2), neopixels.Color(r, g, b));
-                    r = images[currentMemorySlot][(((virtualAngle + 270) % 360) * LED_COUNT) + i][0];
-                    g = images[currentMemorySlot][(((virtualAngle + 270) % 360) * LED_COUNT) + i][1];
-                    b = images[currentMemorySlot][(((virtualAngle + 270) % 360) * LED_COUNT) + i][2];
+                    r = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][0];
+                    g = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][1];
+                    b = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][2];
                     neopixels.setPixelColor(i + (LED_COUNT * 3), neopixels.Color(r, g, b));
                 }
                 neopixels.show();
@@ -262,6 +266,14 @@ void loadSettings() {
             displayMode = value;
         } else if (key == "animation-interval") {
             animationInterval = value;
+        } else if (key == "strip-0-position") {
+            strip0Position = value;
+        } else if (key == "strip-1-position") {
+            strip1Position = value;
+        } else if (key == "strip-2-position") {
+            strip2Position = value;
+        } else if (key == "strip-3-position") {
+            strip3Position = value;
         }
     }
     file.close();
@@ -274,6 +286,10 @@ void saveSettings() {
     file.print("brightness, " + String(brightness) + "\n");
     file.print("display-mode, " + String(displayMode) + "\n");
     file.print("animation-interval, " + String(animationInterval) + "\n");
+    file.print("strip-0-position, " + String(strip0Position) + "\n");
+    file.print("strip-1-position, " + String(strip1Position) + "\n");
+    file.print("strip-2-position, " + String(strip2Position) + "\n");
+    file.print("strip-3-position, " + String(strip3Position) + "\n");
     file.close();
 }
 

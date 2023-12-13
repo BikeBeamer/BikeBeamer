@@ -15,6 +15,10 @@ let progressLabel = document.getElementById('progress');
 let brightnessInput = document.getElementById('brightness');
 let displayModeInput = document.getElementById('display-mode');
 let animationIntervalInput = document.getElementById('animation-interval');
+let strip0PositionInput = document.getElementById('stip-0-position');
+let strip1PositionInput = document.getElementById('stip-1-position');
+let strip2PositionInput = document.getElementById('stip-2-position');
+let strip3PositionInput = document.getElementById('stip-3-position');
 let saveSettingsButton = document.getElementById('save-settings');
 
 // LED related constants
@@ -35,6 +39,10 @@ let slot = 0;
 let brightness = 50;
 let displayMode = 0;
 let animationInterval = 1000;
+let strip0Position = 0;
+let strip1Position = 90;
+let strip2Position = 180;
+let strip3Position = 270;
 
 // Function to upload the image angle by angle
 async function uploadImage(slot, image) {
@@ -68,13 +76,25 @@ async function uploadImage(slot, image) {
 }
 
 // Function to save the settings
-async function saveSettings(brightness, displayMode, animationInterval) {
+async function saveSettings(
+    brightness,
+    displayMode,
+    animationInterval,
+    strip0Position,
+    strip1Position,
+    strip2Position,
+    strip3Position
+) {
     let data = new URLSearchParams();
     let response;
     let responseText;
     data.append('brightness', Math.round(brightness * (255 / 100.0)));
     data.append('display-mode', displayMode);
     data.append('animation-interval', animationInterval * 1000);
+    data.append('strip-0-position', strip0Position);
+    data.append('strip-1-position', strip1Position);
+    data.append('strip-2-position', strip2Position);
+    data.append('strip-3-position', strip3Position);
     response = await fetch('http://192.168.0.1', {
         method: 'POST',
         body: data,
@@ -149,11 +169,31 @@ uploadImageButton.addEventListener('click', () => {
 });
 // Handle save settings button
 saveSettingsButton.addEventListener('click', () => {
-    if (brightnessInput.value && displayModeInput.value && animationIntervalInput.value) {
+    if (
+        brightnessInput.value &&
+        displayModeInput.value &&
+        animationIntervalInput.value &&
+        strip0PositionInput.value >= 0 &&
+        strip1PositionInput.value &&
+        strip2PositionInput.value &&
+        strip3PositionInput.value
+    ) {
         brightness = parseInt(brightnessInput.value);
         displayMode = parseInt(displayModeInput.value);
         animationInterval = parseInt(animationIntervalInput.value);
-        saveSettings(brightness, displayMode, animationInterval)
+        strip0Position = parseInt(strip0PositionInput.value);
+        strip1Position = parseInt(strip1PositionInput.value);
+        strip2Position = parseInt(strip2PositionInput.value);
+        strip3Position = parseInt(strip3PositionInput.value);
+        saveSettings(
+            brightness,
+            displayMode,
+            animationInterval,
+            strip0Position,
+            strip1Position,
+            strip2Position,
+            strip3Position
+        )
             .then(() => {
                 alert('Settings successfully saved.');
             })
