@@ -91,8 +91,10 @@ void setup() {
     });
     server.on("/", HTTP_POST, [&]() {
         // Check for necessary arguments
-        bool hasSettingsArgs =
-            server.hasArg("brightness") && server.hasArg("display-mode") && server.hasArg("animation-interval");
+        bool hasSettingsArgs = server.hasArg("brightness") && server.hasArg("display-mode") &&
+                               server.hasArg("animation-interval") && server.hasArg("strip-0-position") &&
+                               server.hasArg("strip-1-position") && server.hasArg("strip-2-position") &&
+                               server.hasArg("strip-3-position") && server.hasArg("reverse-direction");
         bool hasImageArgs = server.hasArg("slot") && server.hasArg("angle");
         for (int i = 0; i < LED_COUNT; i++) {
             if (!hasImageArgs) {
@@ -120,6 +122,11 @@ void setup() {
             brightness = server.arg("brightness").toInt();
             displayMode = server.arg("display-mode").toInt();
             animationInterval = server.arg("animation-interval").toInt();
+            strip0Position = server.arg("strip-0-position").toInt();
+            strip1Position = server.arg("strip-1-position").toInt();
+            strip2Position = server.arg("strip-2-position").toInt();
+            strip3Position = server.arg("strip-3-position").toInt();
+            reverseDirection = server.arg("reverse-direction").toInt();
             neopixels.setBrightness(brightness);
             neopixels.show();
             if (displayMode < STORAGE_SLOT_COUNT) {
@@ -202,7 +209,7 @@ void loop() {
         }
         currentMicros = micros();
         // Calculate revolution period and update other data on every rotation when the user is pedalling
-        if ((angle >= 353 || angle <= 7) && currentMicros - lastRotation >= 150000 &&
+        if ((angle >= 352 || angle <= 8) && currentMicros - lastRotation >= 150000 &&
             currentMicros - lastRotation <= 1500000) {
             if (isPaused) {
                 isPaused = false;
