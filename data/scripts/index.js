@@ -37,16 +37,6 @@ let bikeBeamerImage = new Array(360 * LED_COUNT);
 for (let i = 0; i < bikeBeamerImage.length; i++) {
     bikeBeamerImage[i] = new Array(3);
 }
-let slot = 0;
-let brightness = 50;
-let displayMode = 0;
-let animationInterval = 1000;
-let strip0Position = 0;
-let strip1Position = 90;
-let strip2Position = 180;
-let strip3Position = 270;
-let reverseDirection = false;
-let mirrorImage = true;
 
 // Function to upload the image angle by angle
 async function uploadImage(slot, image) {
@@ -162,9 +152,8 @@ originalImage.addEventListener('load', () => {
 // Handle upload image button
 uploadImageButton.addEventListener('click', () => {
     if (slotInput.value && bikeBeamerImage[0][0] >= 0) {
-        slot = parseInt(slotInput.value);
         alert('Please be patient, the upload will take about 2 minutes.');
-        uploadImage(slot, bikeBeamerImage)
+        uploadImage(parseInt(slotInput.value), bikeBeamerImage)
             .then(() => {
                 alert('Image successfully uploaded.');
             })
@@ -188,25 +177,16 @@ saveSettingsButton.addEventListener('click', () => {
         reverseDirectionInput.value &&
         mirrorImageInput.value
     ) {
-        brightness = parseInt(brightnessInput.value);
-        displayMode = parseInt(displayModeInput.value);
-        animationInterval = parseInt(animationIntervalInput.value);
-        strip0Position = parseInt(strip0PositionInput.value);
-        strip1Position = parseInt(strip1PositionInput.value);
-        strip2Position = parseInt(strip2PositionInput.value);
-        strip3Position = parseInt(strip3PositionInput.value);
-        reverseDirection = parseInt(reverseDirectionInput.value) ? true : false;
-        mirrorImage = parseInt(mirrorImageInput.value) ? true : false;
         saveSettings(
-            brightness,
-            displayMode,
-            animationInterval,
-            strip0Position,
-            strip1Position,
-            strip2Position,
-            strip3Position,
-            reverseDirection,
-            mirrorImage
+            parseInt(brightnessInput.value),
+            parseInt(displayModeInput.value),
+            parseInt(animationIntervalInput.value),
+            parseInt(strip0PositionInput.value),
+            parseInt(strip1PositionInput.value),
+            parseInt(strip2PositionInput.value),
+            parseInt(strip3PositionInput.value),
+            parseInt(reverseDirectionInput.value) ? true : false,
+            parseInt(mirrorImageInput.value) ? true : false
         )
             .then(() => {
                 alert('Settings successfully saved.');
