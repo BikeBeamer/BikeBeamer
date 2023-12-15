@@ -24,7 +24,7 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 - [x] FAILED: ~~Switch to a reusable cable tie alternative~~
 - [ ] Improve the water resistance (ideally water proof)
 - [ ] Make everything more balanced (equal weight distribution)
-- [ ] Add LED strips to both sides
+- [x] Add LED strips to both sides
 
 ### Electronics
 
@@ -39,8 +39,8 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 
 - [x] Implement customizable LED strip positions (relative to control board)
 - [x] Allow the rotation direction to be reversed (when the control board back faces right)
-- [ ] Use LED trips on both sides to display the image
-- [ ] Allow the image to be mirrored for the second side (useful for symbols and graphics, but not text)
+- [x] Use LED trips on both sides to display the image
+- [x] Allow the image to be mirrored for the second side (useful for symbols and graphics, but not text)
 - [ ] Reduce storage size of images (ideally via file compression)
 - [ ] Add the ability to make animations with more than 2 images
 - [ ] Improve image stability (more exact rotation and speed change detection)

@@ -18,7 +18,7 @@ const IPAddress IP(192, 168, 0, 1);
 
 // MPU, NeoPixel and server objects
 MPU6050 mpu(Wire);
-Adafruit_NeoPixel neopixels(LED_COUNT * 4, NEOPIXELS_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel neopixels(LED_COUNT * 8, NEOPIXELS_PIN, NEO_GRB + NEO_KHZ800);
 DNSServer dns;
 WebServer server(80);
 
@@ -42,6 +42,7 @@ int strip1Position = 90;
 int strip2Position = 180;
 int strip3Position = 270;
 bool reverseDirection = false;
+bool mirrorImage = true;
 
 // Function to load the settings from storage into RAM
 void loadSettings();
@@ -94,7 +95,8 @@ void setup() {
         bool hasSettingsArgs = server.hasArg("brightness") && server.hasArg("display-mode") &&
                                server.hasArg("animation-interval") && server.hasArg("strip-0-position") &&
                                server.hasArg("strip-1-position") && server.hasArg("strip-2-position") &&
-                               server.hasArg("strip-3-position") && server.hasArg("reverse-direction");
+                               server.hasArg("strip-3-position") && server.hasArg("reverse-direction") &&
+                               server.hasArg("mirror-image");
         bool hasImageArgs = server.hasArg("slot") && server.hasArg("angle");
         for (int i = 0; i < LED_COUNT; i++) {
             if (!hasImageArgs) {
@@ -127,6 +129,7 @@ void setup() {
             strip2Position = server.arg("strip-2-position").toInt();
             strip3Position = server.arg("strip-3-position").toInt();
             reverseDirection = server.arg("reverse-direction").toInt();
+            mirrorImage = server.arg("mirror-image").toInt();
             neopixels.setBrightness(brightness);
             neopixels.show();
             if (displayMode < STORAGE_SLOT_COUNT) {
@@ -233,9 +236,10 @@ void loop() {
             lastRotation = currentMicros;
         }
         if (!isPaused) {
-            virtualAngle = (int) round((currentMicros - lastRotation) / (revolutionPeriod / 360.0)) % 360;
+            virtualAngle = 360 - (((int) round((currentMicros - lastRotation) / (revolutionPeriod / 360.0))) % 360);
             // Display an angle of the image
             if (virtualAngle != lastVirtualAngle) {
+                // Left side
                 for (int i = 0; i < LED_COUNT; i++) {
                     byte r = images[currentMemorySlot][(((virtualAngle + strip0Position) % 360) * LED_COUNT) + i][0];
                     byte g = images[currentMemorySlot][(((virtualAngle + strip0Position) % 360) * LED_COUNT) + i][1];
@@ -253,6 +257,63 @@ void loop() {
                     g = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][1];
                     b = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][2];
                     neopixels.setPixelColor(i + (LED_COUNT * 3), neopixels.Color(r, g, b));
+                }
+                // Right side
+                for (int i = 0; i < LED_COUNT; i++) {
+                    if (mirrorImage) {
+                        // Display mirrored image (left becomes right, so both sides face in driving direction =>
+                        // matching LED strips 100% identical, just show the same data)
+                        byte r =
+                            images[currentMemorySlot][(((virtualAngle + strip0Position) % 360) * LED_COUNT) + i][0];
+                        byte g =
+                            images[currentMemorySlot][(((virtualAngle + strip0Position) % 360) * LED_COUNT) + i][1];
+                        byte b =
+                            images[currentMemorySlot][(((virtualAngle + strip0Position) % 360) * LED_COUNT) + i][2];
+                        neopixels.setPixelColor(i + (LED_COUNT * 4), neopixels.Color(r, g, b));
+                        r = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][0];
+                        g = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][1];
+                        b = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][2];
+                        neopixels.setPixelColor(i + (LED_COUNT * 5), neopixels.Color(r, g, b));
+                        r = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][0];
+                        g = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][1];
+                        b = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][2];
+                        neopixels.setPixelColor(i + (LED_COUNT * 6), neopixels.Color(r, g, b));
+                        r = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][0];
+                        g = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][1];
+                        b = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][2];
+                        neopixels.setPixelColor(i + (LED_COUNT * 7), neopixels.Color(r, g, b));
+                    } else {
+                        // Display normal image (right remains right, so only one side faces in driving direction =>
+                        // => correspoding LED strips 0% identical, calculate data separately)
+                        byte r = images[currentMemorySlot]
+                                       [((((360 - virtualAngle) + (360 - strip0Position)) % 360) * LED_COUNT) + i][0];
+                        byte g = images[currentMemorySlot]
+                                       [((((360 - virtualAngle) + (360 - strip0Position)) % 360) * LED_COUNT) + i][1];
+                        byte b = images[currentMemorySlot]
+                                       [((((360 - virtualAngle) + (360 - strip0Position)) % 360) * LED_COUNT) + i][2];
+                        neopixels.setPixelColor(i + (LED_COUNT * 4), neopixels.Color(r, g, b));
+                        r = images[currentMemorySlot]
+                                  [((((360 - virtualAngle) + (360 - strip1Position)) % 360) * LED_COUNT) + i][0];
+                        g = images[currentMemorySlot]
+                                  [((((360 - virtualAngle) + (360 - strip1Position)) % 360) * LED_COUNT) + i][1];
+                        b = images[currentMemorySlot]
+                                  [((((360 - virtualAngle) + (360 - strip1Position)) % 360) * LED_COUNT) + i][2];
+                        neopixels.setPixelColor(i + (LED_COUNT * 5), neopixels.Color(r, g, b));
+                        r = images[currentMemorySlot]
+                                  [((((360 - virtualAngle) + (360 - strip2Position)) % 360) * LED_COUNT) + i][0];
+                        g = images[currentMemorySlot]
+                                  [((((360 - virtualAngle) + (360 - strip2Position)) % 360) * LED_COUNT) + i][1];
+                        b = images[currentMemorySlot]
+                                  [((((360 - virtualAngle) + (360 - strip2Position)) % 360) * LED_COUNT) + i][2];
+                        neopixels.setPixelColor(i + (LED_COUNT * 6), neopixels.Color(r, g, b));
+                        r = images[currentMemorySlot]
+                                  [((((360 - virtualAngle) + (360 - strip3Position)) % 360) * LED_COUNT) + i][0];
+                        g = images[currentMemorySlot]
+                                  [((((360 - virtualAngle) + (360 - strip3Position)) % 360) * LED_COUNT) + i][1];
+                        b = images[currentMemorySlot]
+                                  [((((360 - virtualAngle) + (360 - strip3Position)) % 360) * LED_COUNT) + i][2];
+                        neopixels.setPixelColor(i + (LED_COUNT * 7), neopixels.Color(r, g, b));
+                    }
                 }
                 neopixels.show();
                 lastVirtualAngle = virtualAngle;
@@ -287,6 +348,8 @@ void loadSettings() {
             strip3Position = value;
         } else if (key == "reverse-direction") {
             reverseDirection = value;
+        } else if (key == "mirror-image") {
+            mirrorImage = value;
         }
     }
     file.close();
@@ -304,6 +367,7 @@ void saveSettings() {
     file.print("strip-2-position, " + String(strip2Position) + "\n");
     file.print("strip-3-position, " + String(strip3Position) + "\n");
     file.print("reverse-direction, " + String(reverseDirection) + "\n");
+    file.print("mirror-image, " + String(reverseDirection));
     file.close();
 }
 

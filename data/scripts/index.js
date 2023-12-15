@@ -20,6 +20,7 @@ let strip1PositionInput = document.getElementById('strip-1-position');
 let strip2PositionInput = document.getElementById('strip-2-position');
 let strip3PositionInput = document.getElementById('strip-3-position');
 let reverseDirectionInput = document.getElementById('reverse-direction');
+let mirrorImageInput = document.getElementById('mirror-image');
 let saveSettingsButton = document.getElementById('save-settings');
 
 // LED related constants
@@ -45,6 +46,7 @@ let strip1Position = 90;
 let strip2Position = 180;
 let strip3Position = 270;
 let reverseDirection = false;
+let mirrorImage = true;
 
 // Function to upload the image angle by angle
 async function uploadImage(slot, image) {
@@ -86,7 +88,8 @@ async function saveSettings(
     strip1Position,
     strip2Position,
     strip3Position,
-    reverseDirection
+    reverseDirection,
+    mirrorImage
 ) {
     let data = new URLSearchParams();
     let response;
@@ -99,6 +102,7 @@ async function saveSettings(
     data.append('strip-2-position', strip2Position);
     data.append('strip-3-position', strip3Position);
     data.append('reverse-direction', reverseDirection === true ? 1 : 0);
+    data.append('mirror-image', mirrorImage === true ? 1 : 0);
     response = await fetch('http://192.168.0.1', {
         method: 'POST',
         body: data,
@@ -181,7 +185,8 @@ saveSettingsButton.addEventListener('click', () => {
         strip1PositionInput.value &&
         strip2PositionInput.value &&
         strip3PositionInput.value &&
-        reverseDirectionInput.value
+        reverseDirectionInput.value &&
+        mirrorImageInput.value
     ) {
         brightness = parseInt(brightnessInput.value);
         displayMode = parseInt(displayModeInput.value);
@@ -191,6 +196,7 @@ saveSettingsButton.addEventListener('click', () => {
         strip2Position = parseInt(strip2PositionInput.value);
         strip3Position = parseInt(strip3PositionInput.value);
         reverseDirection = parseInt(reverseDirectionInput.value) ? true : false;
+        mirrorImage = parseInt(mirrorImageInput.value) ? true : false;
         saveSettings(
             brightness,
             displayMode,
@@ -199,7 +205,8 @@ saveSettingsButton.addEventListener('click', () => {
             strip1Position,
             strip2Position,
             strip3Position,
-            reverseDirection
+            reverseDirection,
+            mirrorImage
         )
             .then(() => {
                 alert('Settings successfully saved.');
