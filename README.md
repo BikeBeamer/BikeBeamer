@@ -21,11 +21,10 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 
 - [x] Reduce the overall height to fit slimmer wheels
 - [x] Rethink the mounting system to be easier for the user
-- [ ] Switch to a reusable cable tie alternative
+- [x] FAILED: ~~Switch to a reusable cable tie alternative~~
 - [ ] Improve the water resistance (ideally water proof)
 - [ ] Make everything more balanced (equal weight distribution)
 - [ ] Add LED strips to both sides
-- [ ] 
 
 ### Electronics
 
@@ -66,6 +65,36 @@ TODO
 
 ## Developer notes
 
-- All angles used are in counted in degrees clockwise from 12 o'clock
+- All angles used are in counted in degrees clockwise from 12 o'clock looking at the left side of the bike
 - All coordinate systems used have their origin at the bottom left
-- The LED strips are connected in clockwise direction
+- The LED strips are connected in clockwise direction on the left side and counterclockweise on the right side
+
+## Similiar projects
+
+- https://subethasoftware.com/bikelights/
+- MonkeyLight Pro
+- https://learn.adafruit.com/spokepov/overview
+- https://www.ladyada.net/make/spokepov/
+- https://learn.adafruit.com/bike-wheel-pov-display/overview
+- https://bicycletouringpro.com/hokey-spokes-bicycle-lights-review/
+
+## Possible power supplies
+
+- https://www.adafruit.com/product/770
+- https://www.adafruit.com/product/771
+- https://www.amazon.de/Power-Bank-Energy-Ladekabel-5000mAh/dp/B08G93D8LZ
+- https://www.amazon.de/Intenso-Powerbank-Ladeger%C3%A4t-Smartphone-Digitalkamera-wei%C3%9F/dp/B07Z6N28RD
+- https://www.amazon.de/Powerbank-EnergyQC-Kompakter-Tragbares-Smartphones-Schwarz/dp/B0B158K8KK
+- https://www.amazon.de/Anker-PowerCore-Externer-Powerbank-Ladeger%C3%A4t-Schwarz/dp/B01CU1EC6Y
+- https://www.amazon.de/Sourcingmap-Batterie-Halter-Speicher-Schwarz/dp/B07B4WVS7R
+- https://www.amazon.de/GALDOEP-Batteriehalter-batteriehalter-Druckknopfanschlu%C3%9F-elektronische/dp/B094X2M6GC
+- https://www.amazon.de/YIXISI-Kunststoff-Batteriehalter-Anschlusskabel-Halterung/dp/B08JV9S4XY
+- https://www.amazon.de/St%C3%BCck-Batteriehalter-Mignon-mit-Anschlu%C3%9Fkabel/dp/B00EOKW77G
+
+## Mounting visualisation
+
+![Mounting visualisation](mounting-visualisation.png)
+
+## Image display visualisation
+
+![Image display visualidation](image-display-visualisation.png)
