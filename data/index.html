@@ -104,34 +104,42 @@
                 <br />
                 <input id="animation-interval" type="number" min="0" max="10000" value="1000" />
             </p>
-            <p>
-                <label for="strip-0-position">LED strip 1 (TOP) position in degree:</label>
-                <br />
-                <input id="strip-0-position" type="number" min="0" max="360" value="0" />
-            </p>
-            <p>
-                <label for="strip-1-position">LED strip 2 (RIGHT) position in degree:</label>
-                <br />
-                <input id="strip-1-position" type="number" min="0" max="360" value="90" />
-            </p>
-            <p>
-                <label for="strip-2-position">LED strip 3 (BOTTOM) position in degree:</label>
-                <br />
-                <input id="strip-2-position" type="number" min="0" max="360" value="180" />
-            </p>
-            <p>
-                <label for="strip-3-position">LED strip 4 (LEFT) position in degree:</label>
-                <br />
-                <input id="strip-3-position" type="number" min="0" max="360" value="270" />
-            </p>
-            <p>
-                <label for="reverse-direction">Reverse rotation direction (control board back faces right):</label>
-                <br />
-                <select id="reverse-direction">
-                    <option value="0" selected>Off</option>
-                    <option value="1">On</option>
-                </select>
-            </p>
+            <details>
+                <summary>Advanced</summary>
+                <p>
+                    <label for="strip-0-position">LED strip 1 (TOP) position in degree:</label>
+                    <br />
+                    <input id="strip-0-position" type="number" min="0" max="360" value="0" />
+                </p>
+                <p>
+                    <label for="strip-1-position">LED strip 2 (RIGHT) position in degree:</label>
+                    <br />
+                    <input id="strip-1-position" type="number" min="0" max="360" value="90" />
+                </p>
+                <p>
+                    <label for="strip-2-position">LED strip 3 (BOTTOM) position in degree:</label>
+                    <br />
+                    <input id="strip-2-position" type="number" min="0" max="360" value="180" />
+                </p>
+                <p>
+                    <label for="strip-3-position">LED strip 4 (LEFT) position in degree:</label>
+                    <br />
+                    <input id="strip-3-position" type="number" min="0" max="360" value="270" />
+                </p>
+                <p>
+                    <label for="reverse-direction">Reverse rotation direction (control board back faces right):</label>
+                    <br />
+                    <select id="reverse-direction">
+                        <option value="0" selected>Off</option>
+                        <option value="1">On</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="sampling-threshold">Sampling treshold in degree:</label>
+                    <br />
+                    <input id="sampling-threshold" type="number" min="0" max="20" value="5" />
+                </p>
+            </details>
             <p>
                 <button id="save-settings">Save settings</button>
             </p>

@@ -43,6 +43,7 @@ int strip2Position = 180;
 int strip3Position = 270;
 bool reverseDirection = false;
 bool mirrorImage = true;
+int samplingThreshold = 5;
 
 // Function to load the settings from storage into RAM
 void loadSettings();
@@ -130,6 +131,7 @@ void setup() {
             strip3Position = server.arg("strip-3-position").toInt();
             reverseDirection = server.arg("reverse-direction").toInt();
             mirrorImage = server.arg("mirror-image").toInt();
+            samplingThreshold = server.arg("sampling-threshold").toInt();
             neopixels.setBrightness(brightness);
             neopixels.show();
             if (displayMode < STORAGE_SLOT_COUNT) {
@@ -212,8 +214,8 @@ void loop() {
         }
         currentMicros = micros();
         // Calculate revolution period and update other data on every rotation when the user is pedalling
-        if ((angle >= 352 || angle <= 8) && currentMicros - lastRotation >= 150000 &&
-            currentMicros - lastRotation <= 1500000) {
+        if ((angle >= (360 - samplingThreshold) || angle <= samplingThreshold) &&
+            currentMicros - lastRotation >= 150000 && currentMicros - lastRotation <= 1500000) {
             if (isPaused) {
                 isPaused = false;
             }
@@ -350,6 +352,8 @@ void loadSettings() {
             reverseDirection = value;
         } else if (key == "mirror-image") {
             mirrorImage = value;
+        } else if (key == "sampling-threshold") {
+            samplingThreshold = value;
         }
     }
     file.close();
@@ -367,7 +371,8 @@ void saveSettings() {
     file.print("strip-2-position, " + String(strip2Position) + "\n");
     file.print("strip-3-position, " + String(strip3Position) + "\n");
     file.print("reverse-direction, " + String(reverseDirection) + "\n");
-    file.print("mirror-image, " + String(reverseDirection));
+    file.print("mirror-image, " + String(reverseDirection) + "\n");
+    file.print("sampling-threshold, " + String(samplingThreshold));
     file.close();
 }
 
