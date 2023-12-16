@@ -69,10 +69,18 @@ TODO
 - All coordinate systems used have their origin at the bottom left
 - The LED strips are connected in clockwise direction on the left side and counterclockweise on the right side
 
+### Mounting visualisation
+
+![Mounting visualisation](mounting-visualisation.png)
+
+### Image display visualisation
+
+![Image display visualidation](image-display-visualisation.png)
+
 ## Similiar projects
 
 - https://subethasoftware.com/bikelights/
-- MonkeyLight Pro
+- https://www.kickstarter.com/projects/minimonkey/monkey-light-pro-bicycle-wheel-display-system/description
 - https://learn.adafruit.com/spokepov/overview
 - https://www.ladyada.net/make/spokepov/
 - https://learn.adafruit.com/bike-wheel-pov-display/overview
@@ -90,11 +98,10 @@ TODO
 - https://www.amazon.de/GALDOEP-Batteriehalter-batteriehalter-Druckknopfanschlu%C3%9F-elektronische/dp/B094X2M6GC
 - https://www.amazon.de/YIXISI-Kunststoff-Batteriehalter-Anschlusskabel-Halterung/dp/B08JV9S4XY
 - https://www.amazon.de/St%C3%BCck-Batteriehalter-Mignon-mit-Anschlu%C3%9Fkabel/dp/B00EOKW77G
+- https://de.rs-online.com/web/p/batteriehalter/6119576
+- https://de.rs-online.com/web/p/batteriehalter/6119598
+- https://de.rs-online.com/web/p/batteriehalter/1726012
+- https://de.rs-online.com/web/p/batteriehalter/1756074
+- https://www.ebay.de/itm/152758264527
+- https://www.ebay.de/itm/403681549832
 
-## Mounting visualisation
-
-![Mounting visualisation](mounting-visualisation.png)
-
-## Image display visualisation
-
-![Image display visualidation](image-display-visualisation.png)
