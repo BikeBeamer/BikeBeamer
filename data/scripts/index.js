@@ -22,6 +22,7 @@ let strip3PositionInput = document.getElementById('strip-3-position');
 let reverseDirectionInput = document.getElementById('reverse-direction');
 let mirrorImageInput = document.getElementById('mirror-image');
 let samplingThresholdInput = document.getElementById('sampling-threshold');
+let sampleCountInput = document.getElementById('sample-count');
 let saveSettingsButton = document.getElementById('save-settings');
 
 // LED related constants
@@ -81,7 +82,8 @@ async function saveSettings(
     strip3Position,
     reverseDirection,
     mirrorImage,
-    samplingThreshold
+    samplingThreshold,
+    sampleCount
 ) {
     let data = new URLSearchParams();
     let response;
@@ -96,6 +98,7 @@ async function saveSettings(
     data.append('reverse-direction', reverseDirection === true ? 1 : 0);
     data.append('mirror-image', mirrorImage === true ? 1 : 0);
     data.append('sampling-threshold', samplingThreshold);
+    data.append('sample-count', sampleCount);
     response = await fetch('http://192.168.0.1', {
         method: 'POST',
         body: data,
@@ -179,7 +182,8 @@ saveSettingsButton.addEventListener('click', () => {
         strip3PositionInput.value &&
         reverseDirectionInput.value &&
         mirrorImageInput.value &&
-        samplingThresholdInput.value
+        samplingThresholdInput.value &&
+        sampleCountInput.value
     ) {
         saveSettings(
             parseInt(brightnessInput.value),
@@ -191,7 +195,8 @@ saveSettingsButton.addEventListener('click', () => {
             parseInt(strip3PositionInput.value),
             parseInt(reverseDirectionInput.value) ? true : false,
             parseInt(mirrorImageInput.value) ? true : false,
-            parseInt(samplingThresholdInput.value)
+            parseInt(samplingThresholdInput.value),
+            parseInt(sampleCountInput.value)
         )
             .then(() => {
                 alert('Settings successfully saved.');

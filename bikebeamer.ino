@@ -26,7 +26,7 @@ WebServer server(80);
 byte images[2][360 * LED_COUNT][3];
 unsigned long currentMicros = 0;
 unsigned long revolutionPeriod = 0;
-unsigned long lastRotation = 0;
+unsigned long lastSample = 0;
 unsigned long lastSlotChange = 0;
 unsigned long animationInterval = 1000000;
 int brightness = 128;
@@ -44,6 +44,8 @@ int strip3Position = 270;
 bool reverseDirection = false;
 bool mirrorImage = true;
 int samplingThreshold = 5;
+int sampleCount = 0;
+unsigned long virtualAngleOffset = 0;
 
 // Function to load the settings from storage into RAM
 void loadSettings();
@@ -97,7 +99,8 @@ void setup() {
                                server.hasArg("animation-interval") && server.hasArg("strip-0-position") &&
                                server.hasArg("strip-1-position") && server.hasArg("strip-2-position") &&
                                server.hasArg("strip-3-position") && server.hasArg("reverse-direction") &&
-                               server.hasArg("mirror-image");
+                               server.hasArg("mirror-image") && server.hasArg("sampling-threshold") &&
+                               server.hasArg("sample-count");
         bool hasImageArgs = server.hasArg("slot") && server.hasArg("angle");
         for (int i = 0; i < LED_COUNT; i++) {
             if (!hasImageArgs) {
@@ -132,6 +135,7 @@ void setup() {
             reverseDirection = server.arg("reverse-direction").toInt();
             mirrorImage = server.arg("mirror-image").toInt();
             samplingThreshold = server.arg("sampling-threshold").toInt();
+            sampleCount = server.arg("sample-count").toInt();
             neopixels.setBrightness(brightness);
             neopixels.show();
             if (displayMode < STORAGE_SLOT_COUNT) {
@@ -200,7 +204,7 @@ void setup() {
         server.send(404, "text/plain", "Resource not found");
     });
     server.begin();
-    lastRotation = micros();
+    lastSample = micros();
     lastSlotChange = micros();
 }
 
@@ -215,7 +219,9 @@ void loop() {
         currentMicros = micros();
         // Calculate revolution period and update other data on every rotation when the user is pedalling
         if ((angle >= (360 - samplingThreshold) || angle <= samplingThreshold) &&
-            currentMicros - lastRotation >= 150000 && currentMicros - lastRotation <= 1500000) {
+            ((sampleCount == 0 && currentMicros - lastSample >= 150000 && currentMicros - lastSample <= 1500000) ||
+             (sampleCount == 1 && currentMicros - lastSample >= 75000 && currentMicros - lastSample <= 750000) ||
+             (sampleCount == 2 && currentMicros - lastSample >= 37500 && currentMicros - lastSample <= 375000))) {
             if (isPaused) {
                 isPaused = false;
             }
@@ -223,22 +229,78 @@ void loop() {
                 currentMemorySlot = (currentMemorySlot + 1) % 2;
                 lastSlotChange = currentMicros;
             }
-            revolutionPeriod = currentMicros - lastRotation;
-            lastRotation = currentMicros;
+            switch (sampleCount) {
+                case 0:
+                    revolutionPeriod = currentMicros - lastSample;
+                    break;
+                case 1:
+                    revolutionPeriod = (currentMicros - lastSample) * 2;
+                    break;
+                case 2:
+                    revolutionPeriod = (currentMicros - lastSample) * 4;
+                    break;
+            }
+            lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
+            virtualAngleOffset = 0;
+        }
+        if ((angle >= (90 - samplingThreshold) || angle <= (90 + samplingThreshold)) && sampleCount == 2 &&
+            currentMicros - lastSample >= 37500 && currentMicros - lastSample <= 375000) {
+            if (isPaused) {
+                isPaused = false;
+            }
+            revolutionPeriod = (currentMicros - lastSample) * 4;
+            lastSample = currentMicros;
+            virtualAngle = 0;
+            lastVirtualAngle = -1;
+            virtualAngleOffset = revolutionPeriod * .25;
+        }
+        if ((angle >= (180 - samplingThreshold) || angle <= (180 + samplingThreshold)) &&
+            ((sampleCount == 1 && currentMicros - lastSample >= 75000 && currentMicros - lastSample <= 750000) ||
+             (sampleCount == 2 && currentMicros - lastSample >= 37500 && currentMicros - lastSample <= 375000))) {
+            if (isPaused) {
+                isPaused = false;
+            }
+            switch (sampleCount) {
+                case 1:
+                    revolutionPeriod = (currentMicros - lastSample) * 2;
+                    break;
+                case 2:
+                    revolutionPeriod = (currentMicros - lastSample) * 4;
+                    break;
+            }
+            lastSample = currentMicros;
+            virtualAngle = 0;
+            lastVirtualAngle = -1;
+            virtualAngleOffset = revolutionPeriod * .5;
+        }
+        if ((angle >= (270 - samplingThreshold) || angle <= (270 + samplingThreshold)) && sampleCount == 2 &&
+            currentMicros - lastSample >= 37500 && currentMicros - lastSample <= 375000) {
+            if (isPaused) {
+                isPaused = false;
+            }
+            revolutionPeriod = (currentMicros - lastSample) * 4;
+            lastSample = currentMicros;
+            virtualAngle = 0;
+            lastVirtualAngle = -1;
+            virtualAngleOffset = revolutionPeriod * .75;
         }
         // Pause display when user stops pedalling
-        if (currentMicros - lastRotation > 1500000) {
+        if ((sampleCount == 0 && currentMicros - lastSample > 1500000) ||
+            (sampleCount == 1 && currentMicros - lastSample > 750000) ||
+            (sampleCount == 2 && currentMicros - lastSample > 375000)) {
             if (!isPaused) {
                 neopixels.clear();
                 neopixels.show();
                 isPaused = true;
             }
-            lastRotation = currentMicros;
+            lastSample = currentMicros;
         }
         if (!isPaused) {
-            virtualAngle = 360 - (((int) round((currentMicros - lastRotation) / (revolutionPeriod / 360.0))) % 360);
+            virtualAngle =
+                360 -
+                (((int) round(((currentMicros - lastSample) + virtualAngleOffset) / (revolutionPeriod / 360.0))) % 360);
             // Display an angle of the image
             if (virtualAngle != lastVirtualAngle) {
                 // Left side
@@ -354,6 +416,8 @@ void loadSettings() {
             mirrorImage = value;
         } else if (key == "sampling-threshold") {
             samplingThreshold = value;
+        } else if (key == "sample-count") {
+            sampleCount = value;
         }
     }
     file.close();
@@ -372,7 +436,8 @@ void saveSettings() {
     file.print("strip-3-position, " + String(strip3Position) + "\n");
     file.print("reverse-direction, " + String(reverseDirection) + "\n");
     file.print("mirror-image, " + String(reverseDirection) + "\n");
-    file.print("sampling-threshold, " + String(samplingThreshold));
+    file.print("sampling-threshold, " + String(samplingThreshold) + "\n");
+    file.print("sample-count, " + String(sampleCount) + "\n");
     file.close();
 }
 
