@@ -254,7 +254,7 @@ void loop() {
             lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
-            virtualAngleOffset = revolutionPeriod * .25;
+            virtualAngleOffset = revolutionPeriod * .75;
         }
         if ((angle >= (180 - samplingThreshold) || angle <= (180 + samplingThreshold)) &&
             ((sampleCount == 1 && currentMicros - lastSample >= 75000 && currentMicros - lastSample <= 750000) ||
@@ -284,7 +284,7 @@ void loop() {
             lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
-            virtualAngleOffset = revolutionPeriod * .75;
+            virtualAngleOffset = revolutionPeriod * .25;
         }
         // Pause display when user stops pedalling
         if ((sampleCount == 0 && currentMicros - lastSample > 1500000) ||
