@@ -45,7 +45,7 @@ bool reverseDirection = false;
 bool mirrorImage = true;
 int samplingThreshold = 5;
 int sampleCount = 0;
-unsigned long virtualAngleOffset = 0;
+unsigned long revolutionOffset = 0;
 
 // Function to load the settings from storage into RAM
 void loadSettings();
@@ -243,7 +243,7 @@ void loop() {
             lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
-            virtualAngleOffset = 0;
+            revolutionOffset = 0;
         }
         if ((angle >= (90 - samplingThreshold) || angle <= (90 + samplingThreshold)) && sampleCount == 2 &&
             currentMicros - lastSample >= 37500 && currentMicros - lastSample <= 375000) {
@@ -254,7 +254,7 @@ void loop() {
             lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
-            virtualAngleOffset = revolutionPeriod * .75;
+            revolutionOffset = revolutionPeriod * .75;
         }
         if ((angle >= (180 - samplingThreshold) || angle <= (180 + samplingThreshold)) &&
             ((sampleCount == 1 && currentMicros - lastSample >= 75000 && currentMicros - lastSample <= 750000) ||
@@ -273,7 +273,7 @@ void loop() {
             lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
-            virtualAngleOffset = revolutionPeriod * .5;
+            revolutionOffset = revolutionPeriod * .5;
         }
         if ((angle >= (270 - samplingThreshold) || angle <= (270 + samplingThreshold)) && sampleCount == 2 &&
             currentMicros - lastSample >= 37500 && currentMicros - lastSample <= 375000) {
@@ -284,7 +284,7 @@ void loop() {
             lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
-            virtualAngleOffset = revolutionPeriod * .25;
+            revolutionOffset = revolutionPeriod * .25;
         }
         // Pause display when user stops pedalling
         if ((sampleCount == 0 && currentMicros - lastSample > 1500000) ||
@@ -300,7 +300,7 @@ void loop() {
         if (!isPaused) {
             virtualAngle =
                 360 -
-                (((int) round(((currentMicros - lastSample) + virtualAngleOffset) / (revolutionPeriod / 360.0))) % 360);
+                (((int) round(((currentMicros - lastSample) + revolutionOffset) / (revolutionPeriod / 360.0))) % 360);
             // Display an angle of the image
             if (virtualAngle != lastVirtualAngle) {
                 // Left side
