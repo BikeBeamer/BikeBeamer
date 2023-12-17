@@ -46,6 +46,8 @@ bool mirrorImage = true;
 int samplingThreshold = 5;
 int sampleCount = 0;
 unsigned long revolutionOffset = 0;
+unsigned long avgRevolutionPeriod = 0;
+unsigned long oldRevolutionPeriods[19];
 
 // Function to load the settings from storage into RAM
 void loadSettings();
@@ -240,6 +242,18 @@ void loop() {
                     revolutionPeriod = (currentMicros - lastSample) * 4;
                     break;
             }
+            avgRevolutionPeriod = (unsigned long) round(
+                (oldRevolutionPeriods[0] + oldRevolutionPeriods[1] + oldRevolutionPeriods[2] + oldRevolutionPeriods[3] +
+                 oldRevolutionPeriods[4] + oldRevolutionPeriods[5] + oldRevolutionPeriods[6] + oldRevolutionPeriods[7] +
+                 oldRevolutionPeriods[8] + oldRevolutionPeriods[9] + oldRevolutionPeriods[10] +
+                 oldRevolutionPeriods[11] + oldRevolutionPeriods[12] + oldRevolutionPeriods[13] +
+                 oldRevolutionPeriods[14] + oldRevolutionPeriods[15] + oldRevolutionPeriods[16] +
+                 oldRevolutionPeriods[17] + oldRevolutionPeriods[18] + revolutionPeriod) /
+                20.0);
+            for (int i = 18; i > 0; i--) {
+                oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
+            }
+            oldRevolutionPeriods[0] = revolutionPeriod;
             lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
@@ -251,10 +265,22 @@ void loop() {
                 isPaused = false;
             }
             revolutionPeriod = (currentMicros - lastSample) * 4;
+            avgRevolutionPeriod = (unsigned long) round(
+                (oldRevolutionPeriods[0] + oldRevolutionPeriods[1] + oldRevolutionPeriods[2] + oldRevolutionPeriods[3] +
+                 oldRevolutionPeriods[4] + oldRevolutionPeriods[5] + oldRevolutionPeriods[6] + oldRevolutionPeriods[7] +
+                 oldRevolutionPeriods[8] + oldRevolutionPeriods[9] + oldRevolutionPeriods[10] +
+                 oldRevolutionPeriods[11] + oldRevolutionPeriods[12] + oldRevolutionPeriods[13] +
+                 oldRevolutionPeriods[14] + oldRevolutionPeriods[15] + oldRevolutionPeriods[16] +
+                 oldRevolutionPeriods[17] + oldRevolutionPeriods[18] + revolutionPeriod) /
+                20.0);
+            for (int i = 18; i > 0; i--) {
+                oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
+            }
+            oldRevolutionPeriods[0] = revolutionPeriod;
             lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
-            revolutionOffset = revolutionPeriod * .75;
+            revolutionOffset = avgRevolutionPeriod * .75;
         }
         if (angle >= (180 - samplingThreshold) && angle <= (180 + samplingThreshold) &&
             ((sampleCount == 1 && currentMicros - lastSample >= 75000 && currentMicros - lastSample <= 750000) ||
@@ -270,10 +296,22 @@ void loop() {
                     revolutionPeriod = (currentMicros - lastSample) * 4;
                     break;
             }
+            avgRevolutionPeriod = (unsigned long) round(
+                (oldRevolutionPeriods[0] + oldRevolutionPeriods[1] + oldRevolutionPeriods[2] + oldRevolutionPeriods[3] +
+                 oldRevolutionPeriods[4] + oldRevolutionPeriods[5] + oldRevolutionPeriods[6] + oldRevolutionPeriods[7] +
+                 oldRevolutionPeriods[8] + oldRevolutionPeriods[9] + oldRevolutionPeriods[10] +
+                 oldRevolutionPeriods[11] + oldRevolutionPeriods[12] + oldRevolutionPeriods[13] +
+                 oldRevolutionPeriods[14] + oldRevolutionPeriods[15] + oldRevolutionPeriods[16] +
+                 oldRevolutionPeriods[17] + oldRevolutionPeriods[18] + revolutionPeriod) /
+                20.0);
+            for (int i = 18; i > 0; i--) {
+                oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
+            }
+            oldRevolutionPeriods[0] = revolutionPeriod;
             lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
-            revolutionOffset = revolutionPeriod * .5;
+            revolutionOffset = avgRevolutionPeriod * .5;
         }
         if (angle >= (270 - samplingThreshold) && angle <= (270 + samplingThreshold) && sampleCount == 2 &&
             currentMicros - lastSample >= 37500 && currentMicros - lastSample <= 375000) {
@@ -281,10 +319,22 @@ void loop() {
                 isPaused = false;
             }
             revolutionPeriod = (currentMicros - lastSample) * 4;
+            avgRevolutionPeriod = (unsigned long) round(
+                (oldRevolutionPeriods[0] + oldRevolutionPeriods[1] + oldRevolutionPeriods[2] + oldRevolutionPeriods[3] +
+                 oldRevolutionPeriods[4] + oldRevolutionPeriods[5] + oldRevolutionPeriods[6] + oldRevolutionPeriods[7] +
+                 oldRevolutionPeriods[8] + oldRevolutionPeriods[9] + oldRevolutionPeriods[10] +
+                 oldRevolutionPeriods[11] + oldRevolutionPeriods[12] + oldRevolutionPeriods[13] +
+                 oldRevolutionPeriods[14] + oldRevolutionPeriods[15] + oldRevolutionPeriods[16] +
+                 oldRevolutionPeriods[17] + oldRevolutionPeriods[18] + revolutionPeriod) /
+                20.0);
+            for (int i = 18; i > 0; i--) {
+                oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
+            }
+            oldRevolutionPeriods[0] = revolutionPeriod;
             lastSample = currentMicros;
             virtualAngle = 0;
             lastVirtualAngle = -1;
-            revolutionOffset = revolutionPeriod * .25;
+            revolutionOffset = avgRevolutionPeriod * .25;
         }
         // Pause display when user stops pedalling
         if ((sampleCount == 0 && currentMicros - lastSample > 1500000) ||
@@ -300,7 +350,8 @@ void loop() {
         if (!isPaused) {
             virtualAngle =
                 360 -
-                (((int) round(((currentMicros - lastSample) + revolutionOffset) / (revolutionPeriod / 360.0))) % 360);
+                (((int) round(((currentMicros - lastSample) + revolutionOffset) / (avgRevolutionPeriod / 360.0))) %
+                 360);
             // Display an angle of the image
             if (virtualAngle != lastVirtualAngle) {
                 // Left side
