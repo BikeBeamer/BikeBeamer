@@ -1,5 +1,5 @@
 Key:, Value:
-brightness, 128
+brightness, 32
 display-mode, 0
 animation-interval, 1000000
 strip-0-position, 0
@@ -9,4 +9,4 @@ strip-3-position, 270
 reverse-direction, 0
 mirror-image, 1
 sampling-threshold, 5
-sample-count, 0
+sample-count, 1
