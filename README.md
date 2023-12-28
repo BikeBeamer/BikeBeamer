@@ -4,6 +4,8 @@
 
 ## Overview
 
+![Overview image](overview.png)
+
 This is my next generation of bike POV displays based on [bkpvdsply](https://github.com/locxter/bkpvdsply). With much extended functionality, a more polished design and an easier user-experience, the goal for it is to extend my capabilities and experiment with building a "real product" that lives up to the expectations one might have.
 
 ## Dependencies
@@ -86,6 +88,20 @@ TODO
 - https://www.ladyada.net/make/spokepov/
 - https://learn.adafruit.com/bike-wheel-pov-display/overview
 - https://bicycletouringpro.com/hokey-spokes-bicycle-lights-review/
+
+## MonkeyLight's design and specs
+
+![](monkeylight-images/monkeylight-a30-design-process.avif)
+
+![](monkeylight-images/monkeylight-a30-mounted.jpg)
+
+![](monkeylight-images/monkeylight-mini-datasheet.jpg)
+
+![](monkeylight-images/monkeylight-pro-assembled.jpg)
+
+![](monkeylight-images/monkeylight-pro-pieces.jpg)
+
+![](monkeylight-images/monkeylight-pro-software.png)
 
 ## Possible power supplies
 
