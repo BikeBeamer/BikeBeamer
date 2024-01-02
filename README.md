@@ -75,7 +75,7 @@ TODO
 
 - All angles used are in counted in degrees clockwise from 12 o'clock looking at the left side of the bike
 - All coordinate systems used have their origin at the bottom left
-- The LED strips are connected in clockwise direction on the left side and counterclockweise on the right side
+- The PCBs are mounted with the back side visible when looking at the left side of the bike and connected in clockwise direction
 
 ### Mounting visualisation
 

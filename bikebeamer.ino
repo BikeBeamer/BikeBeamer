@@ -363,15 +363,15 @@ void loop() {
                     r = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][0];
                     g = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][1];
                     b = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][2];
-                    neopixels.setPixelColor(i + LED_COUNT, neopixels.Color(r, g, b));
+                    neopixels.setPixelColor(i + (LED_COUNT * 2), neopixels.Color(r, g, b));
                     r = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][0];
                     g = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][1];
                     b = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][2];
-                    neopixels.setPixelColor(i + (LED_COUNT * 2), neopixels.Color(r, g, b));
+                    neopixels.setPixelColor(i + (LED_COUNT * 4), neopixels.Color(r, g, b));
                     r = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][0];
                     g = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][1];
                     b = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][2];
-                    neopixels.setPixelColor(i + (LED_COUNT * 3), neopixels.Color(r, g, b));
+                    neopixels.setPixelColor(i + (LED_COUNT * 6), neopixels.Color(r, g, b));
                 }
                 // Right side
                 for (int i = 0; i < LED_COUNT; i++) {
@@ -384,15 +384,15 @@ void loop() {
                             images[currentMemorySlot][(((virtualAngle + strip0Position) % 360) * LED_COUNT) + i][1];
                         byte b =
                             images[currentMemorySlot][(((virtualAngle + strip0Position) % 360) * LED_COUNT) + i][2];
-                        neopixels.setPixelColor(i + (LED_COUNT * 4), neopixels.Color(r, g, b));
+                        neopixels.setPixelColor(i + LED_COUNT, neopixels.Color(r, g, b));
                         r = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][0];
                         g = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][1];
                         b = images[currentMemorySlot][(((virtualAngle + strip1Position) % 360) * LED_COUNT) + i][2];
-                        neopixels.setPixelColor(i + (LED_COUNT * 5), neopixels.Color(r, g, b));
+                        neopixels.setPixelColor(i + (LED_COUNT * 3), neopixels.Color(r, g, b));
                         r = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][0];
                         g = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][1];
                         b = images[currentMemorySlot][(((virtualAngle + strip2Position) % 360) * LED_COUNT) + i][2];
-                        neopixels.setPixelColor(i + (LED_COUNT * 6), neopixels.Color(r, g, b));
+                        neopixels.setPixelColor(i + (LED_COUNT * 5), neopixels.Color(r, g, b));
                         r = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][0];
                         g = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][1];
                         b = images[currentMemorySlot][(((virtualAngle + strip3Position) % 360) * LED_COUNT) + i][2];
@@ -406,21 +406,21 @@ void loop() {
                                        [((((360 - virtualAngle) + (360 - strip0Position)) % 360) * LED_COUNT) + i][1];
                         byte b = images[currentMemorySlot]
                                        [((((360 - virtualAngle) + (360 - strip0Position)) % 360) * LED_COUNT) + i][2];
-                        neopixels.setPixelColor(i + (LED_COUNT * 4), neopixels.Color(r, g, b));
+                        neopixels.setPixelColor(i + LED_COUNT, neopixels.Color(r, g, b));
                         r = images[currentMemorySlot]
                                   [((((360 - virtualAngle) + (360 - strip1Position)) % 360) * LED_COUNT) + i][0];
                         g = images[currentMemorySlot]
                                   [((((360 - virtualAngle) + (360 - strip1Position)) % 360) * LED_COUNT) + i][1];
                         b = images[currentMemorySlot]
                                   [((((360 - virtualAngle) + (360 - strip1Position)) % 360) * LED_COUNT) + i][2];
-                        neopixels.setPixelColor(i + (LED_COUNT * 5), neopixels.Color(r, g, b));
+                        neopixels.setPixelColor(i + (LED_COUNT * 3), neopixels.Color(r, g, b));
                         r = images[currentMemorySlot]
                                   [((((360 - virtualAngle) + (360 - strip2Position)) % 360) * LED_COUNT) + i][0];
                         g = images[currentMemorySlot]
                                   [((((360 - virtualAngle) + (360 - strip2Position)) % 360) * LED_COUNT) + i][1];
                         b = images[currentMemorySlot]
                                   [((((360 - virtualAngle) + (360 - strip2Position)) % 360) * LED_COUNT) + i][2];
-                        neopixels.setPixelColor(i + (LED_COUNT * 6), neopixels.Color(r, g, b));
+                        neopixels.setPixelColor(i + (LED_COUNT * 5), neopixels.Color(r, g, b));
                         r = images[currentMemorySlot]
                                   [((((360 - virtualAngle) + (360 - strip3Position)) % 360) * LED_COUNT) + i][0];
                         g = images[currentMemorySlot]
