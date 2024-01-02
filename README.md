@@ -57,10 +57,15 @@ TODO
 | Quantity: | Item: | Source: |
 | --- | --- | --- |
 | 1 | ESP32 D1 Mini | [Amazon](https://www.amazon.de/dp/B08BTLYSTM) |
-| 2 | LED strip | [Amazon](https://www.amazon.de/dp/B08JJ6S1HC) |
-| 16 | JST SM 3 pin connectors | [Amazon](https://www.amazon.de/YIXISI-M%C3%A4nnlichen-Weiblichen-Steckverbinder-Elektrisch/dp/B08JV8TJ9N) |
 | 1 | MPU-6050 | [Amazon](https://www.amazon.de/AZDelivery-MPU-6050-3-Achsen-Gyroskop-Beschleunigungssensor-Arduino/dp/B07TKLYBD6) |
-| 1 | Cable ties | [Amazon](https://www.amazon.de/Kabelbinder-Rscolila-Hochleistungs-Kabelmanagement-300mmx5mm/dp/B08ZC7PBSD) |
+| 2 | LED strip (144 LEDs/m) | [Amazon](https://www.amazon.de/dp/B08JJ6S1HC) |
+| 12 | Battery holder | [RS Components](https://de.rs-online.com/web/p/batteriehalter/6119576) OR [Amazon](https://www.amazon.de/AA-Batteriehalter-KUOQIY-Batteriehalter-Drahtkabeln-Schraubendreher/dp/B0C2Q6JV88) |
+| 4 | Power switch | [RS Components](https://de.rs-online.com/web/p/schiebeschalter/7347334) OR [Amazon](https://www.amazon.de/RUNCCI-YUN-Schiebeschalter-Positionen-Vertikal-Schalter/dp/B09TVDZ8P2) |
+| 4 | Reverse-voltage diode (1N5820) | [RS Components](https://de.rs-online.com/web/p/schottky-dioden-und-gleichrichter/6547224) OR [Amazon](https://www.amazon.de/ALLECIN-1N5820-Schottky-Gleichrichterdiode-Siliziumdioden/dp/B0CKSH71TP) |
+| 12 | Power smoothing capacitor (1000μF) | [RS Components](https://de.rs-online.com/web/p/aluminium-elektrolytkondensatoren/1815420) OR [Amazon](https://www.amazon.de/Kondensator-radial-1000%C2%B5F-RJF-10V102MH4-1000uF/dp/B07H9BFK31) |
+| 6 | Screw terminal | [RS Components](https://de.rs-online.com/web/p/leiterplatten-printklemmen/1731613) OR [Amazon](https://www.amazon.de/RUNCCI-St%C3%BCcke-Terminal-Schraubklemme-Steckverbinder/dp/B07RR7D267) |
+| 6 | JST SM 3 pin connectors | [Amazon](https://www.amazon.de/YIXISI-M%C3%A4nnlichen-Weiblichen-Steckverbinder-Elektrisch/dp/B08JV8TJ9N) |
+| 12 | Cable ties | [Amazon](https://www.amazon.de/Kabelbinder-Rscolila-Hochleistungs-Kabelmanagement-300mmx5mm/dp/B08ZC7PBSD) |
 
 ## How to use it
 
@@ -88,37 +93,3 @@ TODO
 - https://www.ladyada.net/make/spokepov/
 - https://learn.adafruit.com/bike-wheel-pov-display/overview
 - https://bicycletouringpro.com/hokey-spokes-bicycle-lights-review/
-
-## MonkeyLight's design and specs
-
-![](monkeylight-images/monkeylight-a30-design-process.avif)
-
-![](monkeylight-images/monkeylight-a30-mounted.jpg)
-
-![](monkeylight-images/monkeylight-mini-datasheet.jpg)
-
-![](monkeylight-images/monkeylight-pro-assembled.jpg)
-
-![](monkeylight-images/monkeylight-pro-pieces.jpg)
-
-![](monkeylight-images/monkeylight-pro-software.png)
-
-## Possible power supplies
-
-- https://www.adafruit.com/product/770
-- https://www.adafruit.com/product/771
-- https://www.amazon.de/Power-Bank-Energy-Ladekabel-5000mAh/dp/B08G93D8LZ
-- https://www.amazon.de/Intenso-Powerbank-Ladeger%C3%A4t-Smartphone-Digitalkamera-wei%C3%9F/dp/B07Z6N28RD
-- https://www.amazon.de/Powerbank-EnergyQC-Kompakter-Tragbares-Smartphones-Schwarz/dp/B0B158K8KK
-- https://www.amazon.de/Anker-PowerCore-Externer-Powerbank-Ladeger%C3%A4t-Schwarz/dp/B01CU1EC6Y
-- https://www.amazon.de/Sourcingmap-Batterie-Halter-Speicher-Schwarz/dp/B07B4WVS7R
-- https://www.amazon.de/GALDOEP-Batteriehalter-batteriehalter-Druckknopfanschlu%C3%9F-elektronische/dp/B094X2M6GC
-- https://www.amazon.de/YIXISI-Kunststoff-Batteriehalter-Anschlusskabel-Halterung/dp/B08JV9S4XY
-- https://www.amazon.de/St%C3%BCck-Batteriehalter-Mignon-mit-Anschlu%C3%9Fkabel/dp/B00EOKW77G
-- https://de.rs-online.com/web/p/batteriehalter/6119576
-- https://de.rs-online.com/web/p/batteriehalter/6119598
-- https://de.rs-online.com/web/p/batteriehalter/1726012
-- https://de.rs-online.com/web/p/batteriehalter/1756074
-- https://www.ebay.de/itm/152758264527
-- https://www.ebay.de/itm/403681549832
-
