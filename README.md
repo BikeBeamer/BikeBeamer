@@ -33,7 +33,7 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 - [ ] Improve battery runtime
 - [ ] Make charging easier
 - [ ] Develop a properly sized power supply unit
-- [ ] Use custom-made circuit boards
+- [x] Use custom-made circuit boards
 - [ ] Switch to all SMT components
 - [ ] Off-hand to production to a specialized vendor
 
@@ -76,6 +76,7 @@ TODO
 - All angles used are in counted in degrees clockwise from 12 o'clock looking at the left side of the bike
 - All coordinate systems used have their origin at the bottom left
 - The PCBs are mounted with the back side visible when looking at the left side of the bike and connected in clockwise direction
+- All indexes in the code are zero-based, while all user interfaces and visualisations use regular, one-based numbering
 
 ### Mounting visualisation
 
