@@ -15,11 +15,9 @@ let progressLabel = document.getElementById('progress');
 let brightnessInput = document.getElementById('brightness');
 let displayModeInput = document.getElementById('display-mode');
 let animationIntervalInput = document.getElementById('animation-interval');
-let strip0PositionInput = document.getElementById('strip-0-position');
 let strip1PositionInput = document.getElementById('strip-1-position');
 let strip2PositionInput = document.getElementById('strip-2-position');
 let strip3PositionInput = document.getElementById('strip-3-position');
-let reverseDirectionInput = document.getElementById('reverse-direction');
 let mirrorImageInput = document.getElementById('mirror-image');
 let samplingThresholdInput = document.getElementById('sampling-threshold');
 let sampleCountInput = document.getElementById('sample-count');
@@ -76,11 +74,9 @@ async function saveSettings(
     brightness,
     displayMode,
     animationInterval,
-    strip0Position,
     strip1Position,
     strip2Position,
     strip3Position,
-    reverseDirection,
     mirrorImage,
     samplingThreshold,
     sampleCount
@@ -91,11 +87,9 @@ async function saveSettings(
     data.append('brightness', Math.round(brightness * (255 / 100.0)));
     data.append('display-mode', displayMode);
     data.append('animation-interval', animationInterval * 1000);
-    data.append('strip-0-position', strip0Position);
     data.append('strip-1-position', strip1Position);
     data.append('strip-2-position', strip2Position);
     data.append('strip-3-position', strip3Position);
-    data.append('reverse-direction', reverseDirection === true ? 1 : 0);
     data.append('mirror-image', mirrorImage === true ? 1 : 0);
     data.append('sampling-threshold', samplingThreshold);
     data.append('sample-count', sampleCount);
@@ -176,11 +170,9 @@ saveSettingsButton.addEventListener('click', () => {
         brightnessInput.value &&
         displayModeInput.value &&
         animationIntervalInput.value &&
-        strip0PositionInput.value &&
         strip1PositionInput.value &&
         strip2PositionInput.value &&
         strip3PositionInput.value &&
-        reverseDirectionInput.value &&
         mirrorImageInput.value &&
         samplingThresholdInput.value &&
         sampleCountInput.value
@@ -189,11 +181,9 @@ saveSettingsButton.addEventListener('click', () => {
             parseInt(brightnessInput.value),
             parseInt(displayModeInput.value),
             parseInt(animationIntervalInput.value),
-            parseInt(strip0PositionInput.value),
             parseInt(strip1PositionInput.value),
             parseInt(strip2PositionInput.value),
             parseInt(strip3PositionInput.value),
-            parseInt(reverseDirectionInput.value) ? true : false,
             parseInt(mirrorImageInput.value) ? true : false,
             parseInt(samplingThresholdInput.value),
             parseInt(sampleCountInput.value)
