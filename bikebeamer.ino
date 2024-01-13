@@ -58,6 +58,12 @@ void loadImage(int storageSlot, int memorySlot);
 
 // Setup function
 void setup() {
+    // Confirm successful boot
+    pinMode(LED_BUILTIN, OUTPUT);
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(500);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(500);
     // Initialize MPU
     Wire.begin();
     mpu.begin();
