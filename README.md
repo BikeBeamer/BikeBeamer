@@ -1,8 +1,8 @@
 # BikeBeamer
 
-> This is a **very early work in progress**. Things aren't final and are due to change over time. **Don't waste your time to build it in its current state**.
-
 ## Overview
+
+> This is a **work in progress**. Things aren't final and are due to change over time.
 
 ![Overview image](overview.png)
 
