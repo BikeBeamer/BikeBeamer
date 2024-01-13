@@ -25,14 +25,14 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 - [x] Rethink the mounting system to be easier for the user
 - [x] FAILED: ~~Switch to a reusable cable tie alternative~~
 - [ ] Improve the water resistance (ideally water proof)
-- [ ] Make everything more balanced (equal weight distribution)
+- [x] Make everything more balanced (equal weight distribution)
 - [x] Add LED strips to both sides
 
 ### Electronics
 
-- [ ] Improve battery runtime
-- [ ] Make charging easier
-- [ ] Develop a properly sized power supply unit
+- [x] Improve battery runtime
+- [x] ABANDONED VIA SWITCH TO BATTERIES: ~~Make charging easier~~
+- [x] Develop a properly sized power supply unit
 - [x] Use custom-made circuit boards
 - [ ] Switch to all SMT components
 - [ ] Off-hand to production to a specialized vendor
@@ -65,7 +65,7 @@ TODO
 | 12 | Power smoothing capacitor (1000μF) | [RS Components](https://de.rs-online.com/web/p/aluminium-elektrolytkondensatoren/1815420) OR [Amazon](https://www.amazon.de/Kondensator-radial-1000%C2%B5F-RJF-10V102MH4-1000uF/dp/B07H9BFK31) |
 | 6 | Screw terminal | [RS Components](https://de.rs-online.com/web/p/leiterplatten-printklemmen/1731613) OR [Amazon](https://www.amazon.de/RUNCCI-St%C3%BCcke-Terminal-Schraubklemme-Steckverbinder/dp/B07RR7D267) |
 | 6 | JST SM 3 pin connectors | [Amazon](https://www.amazon.de/YIXISI-M%C3%A4nnlichen-Weiblichen-Steckverbinder-Elektrisch/dp/B08JV8TJ9N) |
-| 12 | Cable ties | [Amazon](https://www.amazon.de/Kabelbinder-Rscolila-Hochleistungs-Kabelmanagement-300mmx5mm/dp/B08ZC7PBSD) |
+| 15 | Cable ties | [Amazon](https://www.amazon.de/Kabelbinder-Rscolila-Hochleistungs-Kabelmanagement-300mmx5mm/dp/B08ZC7PBSD) |
 
 ## How to use it
 
