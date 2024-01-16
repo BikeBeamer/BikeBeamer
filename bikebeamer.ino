@@ -12,6 +12,7 @@
 const int NEOPIXELS_PIN = 16;
 const int STORAGE_SLOT_COUNT = 8;
 const int LED_COUNT = 32;
+const int AVERAGED_REVOLUTIONS = 20;
 const char* SSID = "BikeBeamer";
 const char* WIFI_PASSWORD = "BikeBeamer";
 const IPAddress IP(192, 168, 0, 1);
@@ -45,7 +46,7 @@ int samplingThreshold = 5;
 int sampleCount = 0;
 unsigned long revolutionOffset = 0;
 unsigned long avgRevolutionPeriod = 0;
-unsigned long oldRevolutionPeriods[19];
+unsigned long oldRevolutionPeriods[AVERAGED_REVOLUTIONS - 1];
 
 // Function to load the settings from storage into RAM
 void loadSettings();
@@ -240,15 +241,12 @@ void loop() {
                     revolutionPeriod = (currentMicros - lastSample) * 4;
                     break;
             }
-            avgRevolutionPeriod = (unsigned long) round(
-                (oldRevolutionPeriods[0] + oldRevolutionPeriods[1] + oldRevolutionPeriods[2] + oldRevolutionPeriods[3] +
-                 oldRevolutionPeriods[4] + oldRevolutionPeriods[5] + oldRevolutionPeriods[6] + oldRevolutionPeriods[7] +
-                 oldRevolutionPeriods[8] + oldRevolutionPeriods[9] + oldRevolutionPeriods[10] +
-                 oldRevolutionPeriods[11] + oldRevolutionPeriods[12] + oldRevolutionPeriods[13] +
-                 oldRevolutionPeriods[14] + oldRevolutionPeriods[15] + oldRevolutionPeriods[16] +
-                 oldRevolutionPeriods[17] + oldRevolutionPeriods[18] + revolutionPeriod) /
-                20.0);
-            for (int i = 18; i > 0; i--) {
+            avgRevolutionPeriod = revolutionPeriod;
+            for (int i = 0; i < AVERAGED_REVOLUTIONS - 1; i++) {
+                avgRevolutionPeriod += oldRevolutionPeriods[i];
+            }
+            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) AVERAGED_REVOLUTIONS);
+            for (int i = AVERAGED_REVOLUTIONS - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
             oldRevolutionPeriods[0] = revolutionPeriod;
@@ -263,15 +261,12 @@ void loop() {
                 isPaused = false;
             }
             revolutionPeriod = (currentMicros - lastSample) * 4;
-            avgRevolutionPeriod = (unsigned long) round(
-                (oldRevolutionPeriods[0] + oldRevolutionPeriods[1] + oldRevolutionPeriods[2] + oldRevolutionPeriods[3] +
-                 oldRevolutionPeriods[4] + oldRevolutionPeriods[5] + oldRevolutionPeriods[6] + oldRevolutionPeriods[7] +
-                 oldRevolutionPeriods[8] + oldRevolutionPeriods[9] + oldRevolutionPeriods[10] +
-                 oldRevolutionPeriods[11] + oldRevolutionPeriods[12] + oldRevolutionPeriods[13] +
-                 oldRevolutionPeriods[14] + oldRevolutionPeriods[15] + oldRevolutionPeriods[16] +
-                 oldRevolutionPeriods[17] + oldRevolutionPeriods[18] + revolutionPeriod) /
-                20.0);
-            for (int i = 18; i > 0; i--) {
+            avgRevolutionPeriod = revolutionPeriod;
+            for (int i = 0; i < AVERAGED_REVOLUTIONS - 1; i++) {
+                avgRevolutionPeriod += oldRevolutionPeriods[i];
+            }
+            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) AVERAGED_REVOLUTIONS);
+            for (int i = AVERAGED_REVOLUTIONS - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
             oldRevolutionPeriods[0] = revolutionPeriod;
@@ -294,15 +289,12 @@ void loop() {
                     revolutionPeriod = (currentMicros - lastSample) * 4;
                     break;
             }
-            avgRevolutionPeriod = (unsigned long) round(
-                (oldRevolutionPeriods[0] + oldRevolutionPeriods[1] + oldRevolutionPeriods[2] + oldRevolutionPeriods[3] +
-                 oldRevolutionPeriods[4] + oldRevolutionPeriods[5] + oldRevolutionPeriods[6] + oldRevolutionPeriods[7] +
-                 oldRevolutionPeriods[8] + oldRevolutionPeriods[9] + oldRevolutionPeriods[10] +
-                 oldRevolutionPeriods[11] + oldRevolutionPeriods[12] + oldRevolutionPeriods[13] +
-                 oldRevolutionPeriods[14] + oldRevolutionPeriods[15] + oldRevolutionPeriods[16] +
-                 oldRevolutionPeriods[17] + oldRevolutionPeriods[18] + revolutionPeriod) /
-                20.0);
-            for (int i = 18; i > 0; i--) {
+            avgRevolutionPeriod = revolutionPeriod;
+            for (int i = 0; i < AVERAGED_REVOLUTIONS - 1; i++) {
+                avgRevolutionPeriod += oldRevolutionPeriods[i];
+            }
+            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) AVERAGED_REVOLUTIONS);
+            for (int i = AVERAGED_REVOLUTIONS - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
             oldRevolutionPeriods[0] = revolutionPeriod;
@@ -317,15 +309,12 @@ void loop() {
                 isPaused = false;
             }
             revolutionPeriod = (currentMicros - lastSample) * 4;
-            avgRevolutionPeriod = (unsigned long) round(
-                (oldRevolutionPeriods[0] + oldRevolutionPeriods[1] + oldRevolutionPeriods[2] + oldRevolutionPeriods[3] +
-                 oldRevolutionPeriods[4] + oldRevolutionPeriods[5] + oldRevolutionPeriods[6] + oldRevolutionPeriods[7] +
-                 oldRevolutionPeriods[8] + oldRevolutionPeriods[9] + oldRevolutionPeriods[10] +
-                 oldRevolutionPeriods[11] + oldRevolutionPeriods[12] + oldRevolutionPeriods[13] +
-                 oldRevolutionPeriods[14] + oldRevolutionPeriods[15] + oldRevolutionPeriods[16] +
-                 oldRevolutionPeriods[17] + oldRevolutionPeriods[18] + revolutionPeriod) /
-                20.0);
-            for (int i = 18; i > 0; i--) {
+            avgRevolutionPeriod = revolutionPeriod;
+            for (int i = 0; i < AVERAGED_REVOLUTIONS - 1; i++) {
+                avgRevolutionPeriod += oldRevolutionPeriods[i];
+            }
+            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) AVERAGED_REVOLUTIONS);
+            for (int i = AVERAGED_REVOLUTIONS - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
             oldRevolutionPeriods[0] = revolutionPeriod;
