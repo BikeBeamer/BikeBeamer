@@ -52,11 +52,13 @@ And more to come...
 
 ## How to build it
 
-In order to create a device able to produce such wonderful visuals, you only need rather common components (an ESP32, some LED strips, an IMU and ome sort of power supply), but their combination results in this really special outcome. Everything is based on a custom PCB onto which all of the other components are soldered. Here's what the finished outcome should look like:
+In order to create a device able to produce such wonderful visuals, you only need rather common components (an ESP32, some LED strips, an IMU and ome sort of power supply), but their combination results in this really special outcome. Everything is based on a custom PCB onto which all of the other components are soldered and which is then encased in a 3D print. Here's what the finished outcome should look like:
 
 ![Loose boards front](loose-front.jpeg)
 
 ![Loose boards back](loose-back.jpeg)
+
+![Case assembly](cad/assembly.png)
 
 Even though many sequences of assembly will result in functional boards, here's how I assemble them after trying out several approaches with varying success:
 
@@ -68,8 +70,9 @@ Even though many sequences of assembly will result in functional boards, here's 
 6. If necessary glue down the battery holders and then solder them into place - this can be quite tight, but should be doable.
 7. To prevent shorts with the spokes from happing isolate the back side with some duck tape or equivalent material. If you want everything to be more moisture resistant, you can also look into spray rubber products.
 8. Finally, install the connection cables in the consistent matter and make sure that there are no shorts or other critical mistakes.
+9. Once the electronics are done, cut the Plexiglas sheet into 8 14x222mm big pieces, glue them into the 3D prints (4 bottom + 4 top parts) and put them together (bottom part + PCB + top part, 4 times).
 
-Below is a full bill of materials with German sources for all required parts:
+Below is a full bill of materials with German sources for all required non-printable parts:
 
 | Quantity (not necessarly the order quantity): | Item: | Source: |
 | --- | --- | --- |
@@ -85,7 +88,8 @@ Below is a full bill of materials with German sources for all required parts:
 | 15 | Cable ties | [Amazon](https://www.amazon.de/Kabelbinder-Rscolila-Hochleistungs-Kabelmanagement-300mmx5mm/dp/B08ZC7PBSD) |
 | 12 | AA battery | [Amazon](https://www.amazon.de/Varta-Industrial-Batterie-Alkaline-Batterien-blau/dp/B00LN803LE) |
 | 1 | Duck tape | [Amazon](https://www.amazon.de/3M-Gewebeklebeband-1900-Schwarz-1-er/dp/B006MKBVNM) |
-| 3 | Instant glue [Amazon](https://www.amazon.de/UHU-Sekundenkleber-blitzschnell-original-versiegelte/dp/B06WVTZYWF) |
+| 3 | Instant glue | [Amazon](https://www.amazon.de/UHU-Sekundenkleber-blitzschnell-original-versiegelte/dp/B06WVTZYWF) |
+| 1 | Plexiglas sheet | [Amazon](https://www.amazon.de/Langaelex-transparentes-Plexiglasscheibe-Ersatzglas-Projektausstellung/dp/B0CL93YGQ2) |
 
 ## How to use it
 
