@@ -60,6 +60,8 @@ In order to create a device able to produce such wonderful visuals, you only nee
 
 ![Case assembly](cad/assembly.png)
 
+![Encased boards](encased.jpeg)
+
 Even though many sequences of assembly will result in functional boards, here's how I assemble them after trying out several approaches with varying success:
 
 1. In case you went for the cheap battery holders from Amazon, cut off the brim on the bottom, sand this side for better adhesive contact, shorten the wires and tin them in advance.
@@ -129,7 +131,7 @@ Below is a full bill of materials with German sources for all required non-print
 - All angles used are in counted in degrees clockwise from 12 o'clock looking at the left side of the bike
 - All coordinate systems used have their origin at the bottom left
 - The PCBs are mounted with the back side visible when looking at the left side of the bike and connected in clockwise direction
-- All indexes in the code are zero-based, while all user interfaces and visualisations use regular, one-based numbering
+- All indexes in the code are zero-based, while all user interfaces and visualisations use regular one-based numbering
 
 ### Mounting visualisation
 
