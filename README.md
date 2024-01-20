@@ -24,7 +24,7 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 - [x] Reduce the overall height to fit slimmer wheels
 - [x] Rethink the mounting system to be easier for the user
 - [x] FAILED: ~~Switch to a reusable cable tie alternative~~
-- [ ] Improve the water resistance (ideally water proof)
+- [x] Improve the water resistance (ideally water proof)
 - [x] Make everything more balanced (equal weight distribution)
 - [x] Add LED strips to both sides
 
@@ -52,7 +52,7 @@ And more to come...
 
 ## How to build it
 
-In order to create a device able to produce such wonderful visuals, you only need rather common components (an ESP32, some LED strips, an IMU and ome sort of power supply), but their combination results in this really special outcome. Everything is based on a custom PCB onto which all of the other components are soldered and which is then encased in a 3D print. Here's what the finished outcome should look like:
+In order to create a device able to produce such wonderful visuals, you only need rather common components (an ESP32, some LED strips, an IMU and some sort of power supply), but their combination results in this really special outcome. Everything is based on a custom PCB onto which all of the other components are soldered and which is then encased in 3D printed parts. Here's what the finished outcome should look like:
 
 ![Loose boards front](loose-front.jpeg)
 
@@ -65,9 +65,9 @@ In order to create a device able to produce such wonderful visuals, you only nee
 Even though many sequences of assembly will result in functional boards, here's how I assemble them after trying out several approaches with varying success:
 
 1. In case you went for the cheap battery holders from Amazon, cut off the brim on the bottom, sand this side for better adhesive contact, shorten the wires and tin them in advance.
-2. As always, parts should be soldered in the order of their height. So start off cutting the LED strips to their desired length of 32 LEDs and solder them with the arrows facing towards the slim end of the boards from each side. It's easiest to solder one side of a strip, apply some instant glue along it's way and then solder the other one mounting it into place.
+2. As always, parts should be soldered in the order of their height. So start off with cutting the LED strips to their desired length of 32 LEDs and then solder them down with the arrows facing towards the slim end of the boards from each side. It's easiest to solder one side of a strip, apply some instant glue along it's way and then solder the other one mounting it into place.
 3. After that's done, continue with the diodes - be careful to install them the right way around (silver ring facing the marked direction) - and On/Off switch.
-4. Now it's time install the ESP32 and IMU. Solder male headers facing down to the D1 Mini board in case not already done and then mount their female counterparts to the main PCB. You can also fill the contacts on the the other boards, but that's not necessary. Then add the right-angle connector to the MPU-6050 board so that it can be mounted vertically to the PCB with its back facing to the wide end of the board and solder it down.
+4. Now it's time install the ESP32 and IMU. Solder male headers facing down to the D1 Mini board in case not already done and then mount their female counterparts to the main PCB. You can also fill the contacts on the other boards, but that's not necessary. Then add the right-angle connector to the MPU-6050 board so that it can be mounted vertically to the PCB with its back facing to the wide end of the board and solder it down.
 5. You're getting there, just add the screw terminals and then capacitors with the polarity of the latter being crucial (white component markings should face the filled side on the PCB).
 6. If necessary glue down the battery holders and then solder them into place - this can be quite tight, but should be doable.
 7. To prevent shorts with the spokes from happing isolate the back side with some duck tape or equivalent material. If you want everything to be more moisture resistant, you can also look into spray rubber products.
