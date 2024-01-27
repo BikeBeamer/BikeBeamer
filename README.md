@@ -60,7 +60,7 @@ In order to create a device able to produce such wonderful visuals, you only nee
 
 ![Case assembly](cad/assembly.png)
 
-![Encased boards](encased.jpeg)
+![Encased loose boards](encased-loose.jpeg)
 
 Even though many sequences of assembly will result in functional boards, here's how I assemble them after trying out several approaches with varying success:
 
@@ -120,6 +120,10 @@ Below is a full bill of materials with German sources for all required non-print
     ![Mounted boards front close-up](mounted-fornt-close-up.jpeg)
 
     ![Mounted boards back](mounted-back.jpeg)
+
+    ![Encased mounted boards front](encased-mounted-front.jpg)
+
+    ![Encased mounted boards back](encased-mounted-back.jpg)
 
 7. Then just hop on your bike and enjoy the glory of this next generation POV display. Here's just some inspiration:
 
