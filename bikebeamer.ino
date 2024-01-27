@@ -226,10 +226,6 @@ void loop() {
             if (isPaused) {
                 isPaused = false;
             }
-            if (displayMode >= STORAGE_SLOT_COUNT && currentMicros - lastSlotChange > animationInterval) {
-                currentMemorySlot = (currentMemorySlot + 1) % 2;
-                lastSlotChange = currentMicros;
-            }
             switch (sampleCount) {
                 case 0:
                     revolutionPeriod = currentMicros - lastSample;
@@ -339,6 +335,11 @@ void loop() {
                 360 -
                 (((int) round(((currentMicros - lastSample) + revolutionOffset) / (avgRevolutionPeriod / 360.0))) %
                  360);
+            // Animate through images if enabled
+            if (displayMode >= STORAGE_SLOT_COUNT && currentMicros - lastSlotChange > animationInterval) {
+                currentMemorySlot = (currentMemorySlot + 1) % 2;
+                lastSlotChange = currentMicros;
+            }
             // Display an angle of the image
             if (virtualAngle != lastVirtualAngle) {
                 // Left side
