@@ -200,6 +200,6 @@ saveSettingsButton.addEventListener('click', () => {
                 alert(error);
             });
     } else {
-        alert('Please set a brightness, choose a display mode and enter an animation interval.');
+        alert('Please enter values for all settings');
     }
 });
