@@ -45,6 +45,7 @@ int samplingThreshold = 8;
 int sampleCount = 1;
 unsigned long revolutionOffset = 0;
 int avgdRevolutionPeriods = 80;
+int emptyRevolutionPeriods = 0;
 unsigned long avgRevolutionPeriod = 0;
 unsigned long oldRevolutionPeriods[99];
 
@@ -131,6 +132,9 @@ void setup() {
             isReceiving = true;
             neopixels.clear();
             neopixels.show();
+            for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
+                oldRevolutionPeriods[i] = 0;
+            }
             brightness = server.arg("brightness").toInt();
             displayMode = server.arg("display-mode").toInt();
             animationInterval = server.arg("animation-interval").toInt();
@@ -162,6 +166,9 @@ void setup() {
                 isReceiving = true;
                 neopixels.clear();
                 neopixels.show();
+                for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
+                    oldRevolutionPeriods[i] = 0;
+                }
                 file = LittleFS.open(filename, "w");
                 file.print("R:, G:, B:\n");
             } else {
@@ -239,10 +246,15 @@ void loop() {
                     break;
             }
             avgRevolutionPeriod = revolutionPeriod;
+            emptyRevolutionPeriods = 0;
             for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
                 avgRevolutionPeriod += oldRevolutionPeriods[i];
+                if (oldRevolutionPeriods[i] == 0) {
+                    emptyRevolutionPeriods++;
+                }
             }
-            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) avgdRevolutionPeriods);
+            avgRevolutionPeriod =
+                (unsigned long) round(avgRevolutionPeriod / (double) (avgdRevolutionPeriods - emptyRevolutionPeriods));
             for (int i = avgdRevolutionPeriods - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
@@ -258,11 +270,15 @@ void loop() {
                 isPaused = false;
             }
             revolutionPeriod = (currentMicros - lastSample) * 4;
-            avgRevolutionPeriod = revolutionPeriod;
+            emptyRevolutionPeriods = 0;
             for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
                 avgRevolutionPeriod += oldRevolutionPeriods[i];
+                if (oldRevolutionPeriods[i] == 0) {
+                    emptyRevolutionPeriods++;
+                }
             }
-            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) avgdRevolutionPeriods);
+            avgRevolutionPeriod =
+                (unsigned long) round(avgRevolutionPeriod / (double) (avgdRevolutionPeriods - emptyRevolutionPeriods));
             for (int i = avgdRevolutionPeriods - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
@@ -286,11 +302,15 @@ void loop() {
                     revolutionPeriod = (currentMicros - lastSample) * 4;
                     break;
             }
-            avgRevolutionPeriod = revolutionPeriod;
+            emptyRevolutionPeriods = 0;
             for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
                 avgRevolutionPeriod += oldRevolutionPeriods[i];
+                if (oldRevolutionPeriods[i] == 0) {
+                    emptyRevolutionPeriods++;
+                }
             }
-            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) avgdRevolutionPeriods);
+            avgRevolutionPeriod =
+                (unsigned long) round(avgRevolutionPeriod / (double) (avgdRevolutionPeriods - emptyRevolutionPeriods));
             for (int i = avgdRevolutionPeriods - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
@@ -306,11 +326,15 @@ void loop() {
                 isPaused = false;
             }
             revolutionPeriod = (currentMicros - lastSample) * 4;
-            avgRevolutionPeriod = revolutionPeriod;
+            emptyRevolutionPeriods = 0;
             for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
                 avgRevolutionPeriod += oldRevolutionPeriods[i];
+                if (oldRevolutionPeriods[i] == 0) {
+                    emptyRevolutionPeriods++;
+                }
             }
-            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) avgdRevolutionPeriods);
+            avgRevolutionPeriod =
+                (unsigned long) round(avgRevolutionPeriod / (double) (avgdRevolutionPeriods - emptyRevolutionPeriods));
             for (int i = avgdRevolutionPeriods - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
@@ -327,6 +351,9 @@ void loop() {
             if (!isPaused) {
                 neopixels.clear();
                 neopixels.show();
+                for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
+                    oldRevolutionPeriods[i] = 0;
+                }
                 isPaused = true;
             }
             lastSample = currentMicros;
