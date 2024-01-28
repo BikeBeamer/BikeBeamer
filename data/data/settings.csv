@@ -1,11 +1,11 @@
 Key:, Value:
-brightness, 32
+brightness, 51
 display-mode, 0
 animation-interval, 1000000
 strip-1-position, 90
 strip-2-position, 180
 strip-3-position, 270
 mirror-image, 1
-sampling-threshold, 5
+sampling-threshold, 8
 sample-count, 1
-averaged-revolution-periods, 40
+averaged-revolution-periods, 80
