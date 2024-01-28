@@ -8,3 +8,4 @@ strip-3-position, 270
 mirror-image, 1
 sampling-threshold, 5
 sample-count, 1
+averaged-revolution-periods, 40

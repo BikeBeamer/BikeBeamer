@@ -12,7 +12,6 @@
 const int NEOPIXELS_PIN = 16;
 const int STORAGE_SLOT_COUNT = 8;
 const int LED_COUNT = 32;
-const int AVERAGED_REVOLUTIONS = 20;
 const char* SSID = "BikeBeamer";
 const char* WIFI_PASSWORD = "BikeBeamer";
 const IPAddress IP(192, 168, 0, 1);
@@ -30,7 +29,7 @@ unsigned long revolutionPeriod = 0;
 unsigned long lastSample = 0;
 unsigned long lastSlotChange = 0;
 unsigned long animationInterval = 1000000;
-int brightness = 128;
+int brightness = 32;
 int displayMode = 0;
 int currentMemorySlot = 0;
 int angle = 0;
@@ -43,10 +42,11 @@ int strip2Position = 180;
 int strip3Position = 270;
 bool mirrorImage = true;
 int samplingThreshold = 5;
-int sampleCount = 0;
+int sampleCount = 1;
 unsigned long revolutionOffset = 0;
+int avgdRevolutionPeriods = 40;
 unsigned long avgRevolutionPeriod = 0;
-unsigned long oldRevolutionPeriods[AVERAGED_REVOLUTIONS - 1];
+unsigned long oldRevolutionPeriods[99];
 
 // Function to load the settings from storage into RAM
 void loadSettings();
@@ -106,7 +106,7 @@ void setup() {
                                server.hasArg("animation-interval") && server.hasArg("strip-1-position") &&
                                server.hasArg("strip-2-position") && server.hasArg("strip-3-position") &&
                                server.hasArg("mirror-image") && server.hasArg("sampling-threshold") &&
-                               server.hasArg("sample-count");
+                               server.hasArg("sample-count") && server.hasArg("averaged-revolution-periods");
         bool hasImageArgs = server.hasArg("slot") && server.hasArg("angle");
         for (int i = 0; i < LED_COUNT; i++) {
             if (!hasImageArgs) {
@@ -140,6 +140,7 @@ void setup() {
             mirrorImage = server.arg("mirror-image").toInt();
             samplingThreshold = server.arg("sampling-threshold").toInt();
             sampleCount = server.arg("sample-count").toInt();
+            avgdRevolutionPeriods = server.arg("averaged-revolution-periods").toInt();
             neopixels.setBrightness(brightness);
             neopixels.show();
             if (displayMode < STORAGE_SLOT_COUNT) {
@@ -238,11 +239,11 @@ void loop() {
                     break;
             }
             avgRevolutionPeriod = revolutionPeriod;
-            for (int i = 0; i < AVERAGED_REVOLUTIONS - 1; i++) {
+            for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
                 avgRevolutionPeriod += oldRevolutionPeriods[i];
             }
-            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) AVERAGED_REVOLUTIONS);
-            for (int i = AVERAGED_REVOLUTIONS - 2; i > 0; i--) {
+            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) avgdRevolutionPeriods);
+            for (int i = avgdRevolutionPeriods - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
             oldRevolutionPeriods[0] = revolutionPeriod;
@@ -258,11 +259,11 @@ void loop() {
             }
             revolutionPeriod = (currentMicros - lastSample) * 4;
             avgRevolutionPeriod = revolutionPeriod;
-            for (int i = 0; i < AVERAGED_REVOLUTIONS - 1; i++) {
+            for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
                 avgRevolutionPeriod += oldRevolutionPeriods[i];
             }
-            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) AVERAGED_REVOLUTIONS);
-            for (int i = AVERAGED_REVOLUTIONS - 2; i > 0; i--) {
+            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) avgdRevolutionPeriods);
+            for (int i = avgdRevolutionPeriods - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
             oldRevolutionPeriods[0] = revolutionPeriod;
@@ -286,11 +287,11 @@ void loop() {
                     break;
             }
             avgRevolutionPeriod = revolutionPeriod;
-            for (int i = 0; i < AVERAGED_REVOLUTIONS - 1; i++) {
+            for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
                 avgRevolutionPeriod += oldRevolutionPeriods[i];
             }
-            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) AVERAGED_REVOLUTIONS);
-            for (int i = AVERAGED_REVOLUTIONS - 2; i > 0; i--) {
+            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) avgdRevolutionPeriods);
+            for (int i = avgdRevolutionPeriods - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
             oldRevolutionPeriods[0] = revolutionPeriod;
@@ -306,11 +307,11 @@ void loop() {
             }
             revolutionPeriod = (currentMicros - lastSample) * 4;
             avgRevolutionPeriod = revolutionPeriod;
-            for (int i = 0; i < AVERAGED_REVOLUTIONS - 1; i++) {
+            for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
                 avgRevolutionPeriod += oldRevolutionPeriods[i];
             }
-            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) AVERAGED_REVOLUTIONS);
-            for (int i = AVERAGED_REVOLUTIONS - 2; i > 0; i--) {
+            avgRevolutionPeriod = (unsigned long) round(avgRevolutionPeriod / (double) avgdRevolutionPeriods);
+            for (int i = avgdRevolutionPeriods - 2; i > 0; i--) {
                 oldRevolutionPeriods[i] = oldRevolutionPeriods[i - 1];
             }
             oldRevolutionPeriods[0] = revolutionPeriod;
@@ -447,6 +448,8 @@ void loadSettings() {
             samplingThreshold = value;
         } else if (key == "sample-count") {
             sampleCount = value;
+        } else if (key == "averaged-revolution-periods") {
+            avgdRevolutionPeriods = value;
         }
     }
     file.close();
@@ -465,6 +468,7 @@ void saveSettings() {
     file.print("mirror-image, " + String(mirrorImage) + "\n");
     file.print("sampling-threshold, " + String(samplingThreshold) + "\n");
     file.print("sample-count, " + String(sampleCount) + "\n");
+    file.print("averaged-revolution-periods, " + String(avgdRevolutionPeriods) + "\n");
     file.close();
 }
 

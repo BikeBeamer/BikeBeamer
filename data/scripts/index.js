@@ -21,6 +21,7 @@ let strip3PositionInput = document.getElementById('strip-3-position');
 let mirrorImageInput = document.getElementById('mirror-image');
 let samplingThresholdInput = document.getElementById('sampling-threshold');
 let sampleCountInput = document.getElementById('sample-count');
+let averagedRevolutionPeriodsInput = document.getElementById('averaged-revolution-periods');
 let saveSettingsButton = document.getElementById('save-settings');
 
 // LED related constants
@@ -79,7 +80,8 @@ async function saveSettings(
     strip3Position,
     mirrorImage,
     samplingThreshold,
-    sampleCount
+    sampleCount,
+    averagedRevolutionPeriods
 ) {
     let data = new URLSearchParams();
     let response;
@@ -93,6 +95,7 @@ async function saveSettings(
     data.append('mirror-image', mirrorImage === true ? 1 : 0);
     data.append('sampling-threshold', samplingThreshold);
     data.append('sample-count', sampleCount);
+    data.append('averaged-revolution-periods', averagedRevolutionPeriods);
     response = await fetch('http://192.168.0.1', {
         method: 'POST',
         body: data,
@@ -175,7 +178,8 @@ saveSettingsButton.addEventListener('click', () => {
         strip3PositionInput.value &&
         mirrorImageInput.value &&
         samplingThresholdInput.value &&
-        sampleCountInput.value
+        sampleCountInput.value &&
+        averagedRevolutionPeriodsInput.value
     ) {
         saveSettings(
             parseInt(brightnessInput.value),
@@ -186,7 +190,8 @@ saveSettingsButton.addEventListener('click', () => {
             parseInt(strip3PositionInput.value),
             parseInt(mirrorImageInput.value) ? true : false,
             parseInt(samplingThresholdInput.value),
-            parseInt(sampleCountInput.value)
+            parseInt(sampleCountInput.value),
+            parseInt(averagedRevolutionPeriodsInput.value)
         )
             .then(() => {
                 alert('Settings successfully saved.');
