@@ -47,6 +47,9 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 - [ ] Add the ability to make animations with more than 2 images
 - [x] Improve image stability (more exact rotation and speed change detection, smooth measuremets)
 - [x] Implement customizable sampling threshold (allowed variation to trigger rotation detection)
+- [ ] Rework API with clearer endpoints
+- [ ] Load existing settings to UI for easier incremental changes
+- [ ] Store and load associative names of images for easier identification
 
 And more to come...
 
