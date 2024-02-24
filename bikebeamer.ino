@@ -171,6 +171,7 @@ void setup() {
         server.send(200);
     });
     server.on(UriBraces("/api/images/{}"), HTTP_PUT, []() {
+        // Check for necessary arguments
         bool hasImageArgs = server.pathArg(0).length() > 0 && server.pathArg(0).toInt() >= 0 &&
                             server.pathArg(0).toInt() < STORAGE_SLOT_COUNT && server.hasArg("name") &&
                             server.hasArg("angle");
@@ -192,6 +193,7 @@ void setup() {
             }
             hasImageArgs = server.hasArg("led-" + String(i) + "-b");
         }
+        // Extract and store the received data
         if (hasImageArgs) {
             int storageSlot = server.pathArg(0).toInt();
             int memorySlot = -1;
