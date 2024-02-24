@@ -48,8 +48,8 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 - [x] Improve image stability (more exact rotation and speed change detection, smooth measuremets)
 - [x] Implement customizable sampling threshold (allowed variation to trigger rotation detection)
 - [ ] Rework API with clearer endpoints
-- [ ] Load existing settings to UI for easier incremental changes
-- [ ] Store and load associative names of images for easier identification
+- [x] Load existing settings to UI for easier incremental changes
+- [x] Store and load associative names of images for easier identification
 
 And more to come...
 
@@ -95,6 +95,7 @@ Below is a full bill of materials with German sources for all required non-print
 | 1 | Duck tape | [Amazon](https://www.amazon.de/3M-Gewebeklebeband-1900-Schwarz-1-er/dp/B006MKBVNM) |
 | 3 | Instant glue | [Amazon](https://www.amazon.de/UHU-Sekundenkleber-blitzschnell-original-versiegelte/dp/B06WVTZYWF) |
 | 1 | Plexiglas sheet | [Amazon](https://www.amazon.de/Langaelex-transparentes-Plexiglasscheibe-Ersatzglas-Projektausstellung/dp/B0CL93YGQ2) |
+| 18 | Wire ferrules | [Amazon](https://www.amazon.de/BAURIX-Aderendh%C3%BClsen-Sortiment-Isolierte-sortiert/dp/B07R6N5MGC) |
 
 ## How to use it
 
@@ -147,6 +148,20 @@ Below is a full bill of materials with German sources for all required non-print
 ### Image display visualisation
 
 ![Image display visualidation](image-display-visualisation.png)
+
+### API
+
+- [x] User interface: GET /index.html
+
+#### Settings
+
+- [x] Get stored settings: GET /api/settings
+- [ ] Update settings: PUT /api/settings
+
+### Images
+
+- [x] Get image names: GET /api/images
+- [ ] Update image: PUT /api/images/{imageId}
 
 ## Similiar projects
 

@@ -24,48 +24,55 @@ WebServer server(80);
 
 // Other variables
 byte images[2][360 * LED_COUNT][3];
+int brightness = 51;
+bool mirrorImage = true;
+int displayMode = 0;
+unsigned long animationInterval = 1000000;
+int internalWheelDiameter = 600;
+int hubDiameter = 80;
+int strip1Position = 90;
+int strip2Position = 180;
+int strip3Position = 270;
+int samplingThreshold = 8;
+int sampleCount = 1;
+int avgdRevolutionPeriods = 80;
 unsigned long currentMicros = 0;
 unsigned long revolutionPeriod = 0;
 unsigned long lastSample = 0;
 unsigned long lastSlotChange = 0;
-unsigned long animationInterval = 1000000;
-int brightness = 51;
-int displayMode = 0;
 int currentMemorySlot = 0;
 int angle = 0;
 int virtualAngle = 0;
 int lastVirtualAngle = -1;
 bool isReceiving = false;
 bool isPaused = true;
-int strip1Position = 90;
-int strip2Position = 180;
-int strip3Position = 270;
-bool mirrorImage = true;
-int samplingThreshold = 8;
-int sampleCount = 1;
 unsigned long revolutionOffset = 0;
-int avgdRevolutionPeriods = 80;
+unsigned long oldRevolutionPeriods[99];
 int emptyRevolutionPeriods = 0;
 unsigned long avgRevolutionPeriod = 0;
-unsigned long oldRevolutionPeriods[99];
 
 // Function to load the settings from storage into RAM
 void loadSettings();
 
+// Function to load an image from storage into RAM
+void loadImage(int storageSlot, int memorySlot);
+
 // Function to save the settings from RAM into storage
 void saveSettings();
 
-// Function to load an image from storage into RAM
-void loadImage(int storageSlot, int memorySlot);
+// Function to save an image name into storage
+void saveImageName(int storageSlot, String newName);
 
 // Setup function
 void setup() {
     // Confirm successful boot
+    /*
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, HIGH);
     delay(500);
     digitalWrite(LED_BUILTIN, LOW);
     delay(500);
+    */
     // Initialize MPU
     Wire.begin();
     mpu.begin();
@@ -92,23 +99,51 @@ void setup() {
     dns.start(53, "*", IP);
     // Initialize web server
     server.enableCORS(true);
-    server.on("/", HTTP_GET, [&]() {
-        File file = LittleFS.open("/index.html", "r");
-        String content;
+    server.on("/api/settings", HTTP_GET, [&]() {
+        server.sendHeader("brightness", String(brightness));
+        server.sendHeader("mirror-image", String(mirrorImage));
+        server.sendHeader("display-mode", String(displayMode));
+        server.sendHeader("animation-interval", String(animationInterval));
+        server.sendHeader("internal-wheel-diameter", String(internalWheelDiameter));
+        server.sendHeader("hub-diameter", String(hubDiameter));
+        server.sendHeader("strip-1-position", String(strip1Position));
+        server.sendHeader("strip-2-position", String(strip2Position));
+        server.sendHeader("strip-3-position", String(strip3Position));
+        server.sendHeader("sampling-threshold", String(samplingThreshold));
+        server.sendHeader("sample-count", String(sampleCount));
+        server.sendHeader("averaged-revolution-periods", String(avgdRevolutionPeriods));
+        server.send(200);
+    });
+    server.on("/api/settings", HTTP_PUT, [&]() {
+    });
+    server.on("/api/images", HTTP_GET, [&]() {
+        File file = LittleFS.open("/data/images.csv", "r");
         while (file.available()) {
-            content += (char) file.read();
+            String line = file.readStringUntil('\n');
+            String slot = line.substring(0, line.indexOf(','));
+            int slotInt = slot.toInt();
+            line.remove(0, line.indexOf(',') + 2);
+            String name = line;
+            if (slot.length() <= String(STORAGE_SLOT_COUNT).length() && slotInt >= 0 && slotInt < STORAGE_SLOT_COUNT) {
+                server.sendHeader("slot-" + slot, name);
+            }
         }
         file.close();
-        server.send(200, "text/html", content);
+        server.send(200);
     });
+    server.on(UriBraces("/api/images/{}"), HTTP_PUT, []() {
+        int imageId = server.pathArg(0).toInt();
+    });
+
     server.on("/", HTTP_POST, [&]() {
         // Check for necessary arguments
-        bool hasSettingsArgs = server.hasArg("brightness") && server.hasArg("display-mode") &&
-                               server.hasArg("animation-interval") && server.hasArg("strip-1-position") &&
-                               server.hasArg("strip-2-position") && server.hasArg("strip-3-position") &&
-                               server.hasArg("mirror-image") && server.hasArg("sampling-threshold") &&
+        bool hasSettingsArgs = server.hasArg("brightness") && server.hasArg("mirror-image") &&
+                               server.hasArg("display-mode") && server.hasArg("animation-interval") &&
+                               server.hasArg("internal-wheel-diameter") && server.hasArg("hub-diameter") &&
+                               server.hasArg("strip-1-position") && server.hasArg("strip-2-position") &&
+                               server.hasArg("strip-3-position") && server.hasArg("sampling-threshold") &&
                                server.hasArg("sample-count") && server.hasArg("averaged-revolution-periods");
-        bool hasImageArgs = server.hasArg("slot") && server.hasArg("angle");
+        bool hasImageArgs = server.hasArg("slot") && server.hasArg("name") && server.hasArg("angle");
         for (int i = 0; i < LED_COUNT; i++) {
             if (!hasImageArgs) {
                 break;
@@ -136,12 +171,14 @@ void setup() {
                 oldRevolutionPeriods[i] = 0;
             }
             brightness = server.arg("brightness").toInt();
+            mirrorImage = server.arg("mirror-image").toInt();
             displayMode = server.arg("display-mode").toInt();
             animationInterval = server.arg("animation-interval").toInt();
+            internalWheelDiameter = server.arg("internal-wheel-diameter").toInt();
+            hubDiameter = server.arg("hub-diameter").toInt();
             strip1Position = server.arg("strip-1-position").toInt();
             strip2Position = server.arg("strip-2-position").toInt();
             strip3Position = server.arg("strip-3-position").toInt();
-            mirrorImage = server.arg("mirror-image").toInt();
             samplingThreshold = server.arg("sampling-threshold").toInt();
             sampleCount = server.arg("sample-count").toInt();
             avgdRevolutionPeriods = server.arg("averaged-revolution-periods").toInt();
@@ -169,6 +206,7 @@ void setup() {
                 for (int i = 0; i < avgdRevolutionPeriods - 1; i++) {
                     oldRevolutionPeriods[i] = 0;
                 }
+                saveImageName(storageSlot, server.arg("name"));
                 file = LittleFS.open(filename, "w");
                 file.print("R:, G:, B:\n");
             } else {
@@ -201,6 +239,8 @@ void setup() {
             server.send(404, "text/plain", "Invalid request");
         }
     });
+    server.serveStatic("/", LittleFS, "/index.html");
+    server.serveStatic("/index.html", LittleFS, "/index.html");
     server.serveStatic("/data/image-0.csv", LittleFS, "/data/image-0.csv");
     server.serveStatic("/data/image-1.csv", LittleFS, "/data/image-1.csv");
     server.serveStatic("/data/image-2.csv", LittleFS, "/data/image-2.csv");
@@ -209,6 +249,7 @@ void setup() {
     server.serveStatic("/data/image-5.csv", LittleFS, "/data/image-5.csv");
     server.serveStatic("/data/image-6.csv", LittleFS, "/data/image-6.csv");
     server.serveStatic("/data/image-7.csv", LittleFS, "/data/image-7.csv");
+    server.serveStatic("/data/images.csv", LittleFS, "/data/images.csv");
     server.serveStatic("/data/settings.csv", LittleFS, "/data/settings.csv");
     server.serveStatic("/scripts/index.js", LittleFS, "/scripts/index.js");
     server.serveStatic("/styles/dark.min.css", LittleFS, "/styles/dark.min.css");
@@ -459,18 +500,22 @@ void loadSettings() {
         unsigned long value = line.toInt();
         if (key == "brightness") {
             brightness = value;
+        } else if (key == "mirror-image") {
+            mirrorImage = value;
         } else if (key == "display-mode") {
             displayMode = value;
         } else if (key == "animation-interval") {
             animationInterval = value;
+        } else if (key == "internal-wheel-diameter") {
+            internalWheelDiameter = value;
+        } else if (key == "hub-diameter") {
+            hubDiameter = value;
         } else if (key == "strip-1-position") {
             strip1Position = value;
         } else if (key == "strip-2-position") {
             strip2Position = value;
         } else if (key == "strip-3-position") {
             strip3Position = value;
-        } else if (key == "mirror-image") {
-            mirrorImage = value;
         } else if (key == "sampling-threshold") {
             samplingThreshold = value;
         } else if (key == "sample-count") {
@@ -479,23 +524,6 @@ void loadSettings() {
             avgdRevolutionPeriods = value;
         }
     }
-    file.close();
-}
-
-// Function to save the settings from RAM into storage
-void saveSettings() {
-    File file = LittleFS.open("/data/settings.csv", "w");
-    file.print("Key:, Value:\n");
-    file.print("brightness, " + String(brightness) + "\n");
-    file.print("display-mode, " + String(displayMode) + "\n");
-    file.print("animation-interval, " + String(animationInterval) + "\n");
-    file.print("strip-1-position, " + String(strip1Position) + "\n");
-    file.print("strip-2-position, " + String(strip2Position) + "\n");
-    file.print("strip-3-position, " + String(strip3Position) + "\n");
-    file.print("mirror-image, " + String(mirrorImage) + "\n");
-    file.print("sampling-threshold, " + String(samplingThreshold) + "\n");
-    file.print("sample-count, " + String(sampleCount) + "\n");
-    file.print("averaged-revolution-periods, " + String(avgdRevolutionPeriods) + "\n");
     file.close();
 }
 
@@ -524,6 +552,52 @@ void loadImage(int storageSlot, int memorySlot) {
             line.remove(0, line.indexOf(',') + 1);
             images[memorySlot][i][2] = line.toInt();
         }
+    }
+    file.close();
+}
+
+// Function to save the settings from RAM into storage
+void saveSettings() {
+    File file = LittleFS.open("/data/settings.csv", "w");
+    file.print("Key:, Value:\n");
+    file.print("brightness, " + String(brightness) + "\n");
+    file.print("mirror-image, " + String(mirrorImage) + "\n");
+    file.print("display-mode, " + String(displayMode) + "\n");
+    file.print("animation-interval, " + String(animationInterval) + "\n");
+    file.print("internal-wheel-diameter, " + String(internalWheelDiameter) + "\n");
+    file.print("hub-diameter, " + String(hubDiameter) + "\n");
+    file.print("strip-1-position, " + String(strip1Position) + "\n");
+    file.print("strip-2-position, " + String(strip2Position) + "\n");
+    file.print("strip-3-position, " + String(strip3Position) + "\n");
+    file.print("sampling-threshold, " + String(samplingThreshold) + "\n");
+    file.print("sample-count, " + String(sampleCount) + "\n");
+    file.print("averaged-revolution-periods, " + String(avgdRevolutionPeriods) + "\n");
+    file.close();
+}
+
+// Function to save an image name into storage
+void saveImageName(int storageSlot, String newName) {
+    String buffer[STORAGE_SLOT_COUNT];
+    File file = LittleFS.open("/data/images.csv", "r");
+    while (file.available()) {
+        String line = file.readStringUntil('\n');
+        String slot = line.substring(0, line.indexOf(','));
+        int slotInt = slot.toInt();
+        line.remove(0, line.indexOf(',') + 2);
+        String name = line;
+        if (slot.length() <= String(STORAGE_SLOT_COUNT).length() && slotInt >= 0 && slotInt < STORAGE_SLOT_COUNT) {
+            if (slotInt != storageSlot) {
+                buffer[slotInt] = name;
+            } else {
+                buffer[slotInt] = newName;
+            }
+        }
+    }
+    file.close();
+    file = LittleFS.open("/data/images.csv", "w");
+    file.print("Slot:, Name:\n");
+    for (int i = 0; i < STORAGE_SLOT_COUNT; i++) {
+        file.print(String(i) + ", " + buffer[i] + "\n");
     }
     file.close();
 }

@@ -1,11 +1,13 @@
 Key:, Value:
 brightness, 51
+mirror-image, 1
 display-mode, 0
 animation-interval, 1000000
+internal-wheel-diameter, 600
+hub-diameter, 80
 strip-1-position, 90
 strip-2-position, 180
 strip-3-position, 270
-mirror-image, 1
 sampling-threshold, 8
 sample-count, 1
 averaged-revolution-periods, 80
