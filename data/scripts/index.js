@@ -104,7 +104,6 @@ async function uploadImage(slot, name, image) {
         let data = new URLSearchParams();
         let response;
         let responseText;
-        data.append('slot', slot);
         data.append('name', name);
         data.append('angle', i);
         for (let j = 0; j < LED_COUNT; j++) {
@@ -112,13 +111,8 @@ async function uploadImage(slot, name, image) {
             data.append('led-' + j + '-g', image[i * LED_COUNT + j][1]);
             data.append('led-' + j + '-b', image[i * LED_COUNT + j][2]);
         }
-        /*
         response = await fetch('http://192.168.0.1/api/images/' + slot, {
             method: 'PUT',
-            body: data,
-        });*/
-        response = await fetch('http://192.168.0.1/', {
-            method: 'POST',
             body: data,
         });
         responseText = await response.text();
@@ -165,12 +159,8 @@ async function saveSettings(
     data.append('sampling-threshold', samplingThreshold);
     data.append('sample-count', sampleCount);
     data.append('averaged-revolution-periods', avgdRevolutionPeriods);
-    /*response = await fetch('http://192.168.0.1/api/settings', {
+    response = await fetch('http://192.168.0.1/api/settings', {
         method: 'PUT',
-        body: data,
-    });*/
-    response = await fetch('http://192.168.0.1/', {
-        method: 'POST',
         body: data,
     });
     responseText = await response.text();

@@ -47,7 +47,7 @@ I generally try to minimize dependencies, but I'm a one man crew and can therefo
 - [ ] Add the ability to make animations with more than 2 images
 - [x] Improve image stability (more exact rotation and speed change detection, smooth measuremets)
 - [x] Implement customizable sampling threshold (allowed variation to trigger rotation detection)
-- [ ] Rework API with clearer endpoints
+- [X] Rework API with clearer endpoints
 - [x] Load existing settings to UI for easier incremental changes
 - [x] Store and load associative names of images for easier identification
 
@@ -156,12 +156,12 @@ Below is a full bill of materials with German sources for all required non-print
 #### Settings
 
 - [x] Get stored settings: GET /api/settings
-- [ ] Update settings: PUT /api/settings
+- [X] Update settings: PUT /api/settings
 
 ### Images
 
 - [x] Get image names: GET /api/images
-- [ ] Update image: PUT /api/images/{imageId}
+- [X] Update image: PUT /api/images/{slot}
 
 ## Similiar projects
 

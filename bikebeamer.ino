@@ -66,13 +66,11 @@ void saveImageName(int storageSlot, String newName);
 // Setup function
 void setup() {
     // Confirm successful boot
-    /*
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, HIGH);
     delay(500);
     digitalWrite(LED_BUILTIN, LOW);
     delay(500);
-    */
     // Initialize MPU
     Wire.begin();
     mpu.begin();
@@ -115,27 +113,6 @@ void setup() {
         server.send(200);
     });
     server.on("/api/settings", HTTP_PUT, [&]() {
-    });
-    server.on("/api/images", HTTP_GET, [&]() {
-        File file = LittleFS.open("/data/images.csv", "r");
-        while (file.available()) {
-            String line = file.readStringUntil('\n');
-            String slot = line.substring(0, line.indexOf(','));
-            int slotInt = slot.toInt();
-            line.remove(0, line.indexOf(',') + 2);
-            String name = line;
-            if (slot.length() <= String(STORAGE_SLOT_COUNT).length() && slotInt >= 0 && slotInt < STORAGE_SLOT_COUNT) {
-                server.sendHeader("slot-" + slot, name);
-            }
-        }
-        file.close();
-        server.send(200);
-    });
-    server.on(UriBraces("/api/images/{}"), HTTP_PUT, []() {
-        int imageId = server.pathArg(0).toInt();
-    });
-
-    server.on("/", HTTP_POST, [&]() {
         // Check for necessary arguments
         bool hasSettingsArgs = server.hasArg("brightness") && server.hasArg("mirror-image") &&
                                server.hasArg("display-mode") && server.hasArg("animation-interval") &&
@@ -143,25 +120,6 @@ void setup() {
                                server.hasArg("strip-1-position") && server.hasArg("strip-2-position") &&
                                server.hasArg("strip-3-position") && server.hasArg("sampling-threshold") &&
                                server.hasArg("sample-count") && server.hasArg("averaged-revolution-periods");
-        bool hasImageArgs = server.hasArg("slot") && server.hasArg("name") && server.hasArg("angle");
-        for (int i = 0; i < LED_COUNT; i++) {
-            if (!hasImageArgs) {
-                break;
-            }
-            hasImageArgs = server.hasArg("led-" + String(i) + "-r");
-        }
-        for (int i = 0; i < LED_COUNT; i++) {
-            if (!hasImageArgs) {
-                break;
-            }
-            hasImageArgs = server.hasArg("led-" + String(i) + "-g");
-        }
-        for (int i = 0; i < LED_COUNT; i++) {
-            if (!hasImageArgs) {
-                break;
-            }
-            hasImageArgs = server.hasArg("led-" + String(i) + "-b");
-        }
         // Extract and store the received data
         if (hasSettingsArgs) {
             isReceiving = true;
@@ -193,8 +151,49 @@ void setup() {
             saveSettings();
             isReceiving = false;
             server.send(200);
-        } else if (hasImageArgs) {
-            int storageSlot = server.arg("slot").toInt();
+        } else {
+            server.send(404, "text/plain", "Invalid request");
+        }
+    });
+    server.on("/api/images", HTTP_GET, [&]() {
+        File file = LittleFS.open("/data/images.csv", "r");
+        while (file.available()) {
+            String line = file.readStringUntil('\n');
+            String slot = line.substring(0, line.indexOf(','));
+            int slotInt = slot.toInt();
+            line.remove(0, line.indexOf(',') + 2);
+            String name = line;
+            if (slot.length() <= String(STORAGE_SLOT_COUNT).length() && slotInt >= 0 && slotInt < STORAGE_SLOT_COUNT) {
+                server.sendHeader("slot-" + slot, name);
+            }
+        }
+        file.close();
+        server.send(200);
+    });
+    server.on(UriBraces("/api/images/{}"), HTTP_PUT, []() {
+        bool hasImageArgs = server.pathArg(0).length() > 0 && server.pathArg(0).toInt() >= 0 &&
+                            server.pathArg(0).toInt() < STORAGE_SLOT_COUNT && server.hasArg("name") &&
+                            server.hasArg("angle");
+        for (int i = 0; i < LED_COUNT; i++) {
+            if (!hasImageArgs) {
+                break;
+            }
+            hasImageArgs = server.hasArg("led-" + String(i) + "-r");
+        }
+        for (int i = 0; i < LED_COUNT; i++) {
+            if (!hasImageArgs) {
+                break;
+            }
+            hasImageArgs = server.hasArg("led-" + String(i) + "-g");
+        }
+        for (int i = 0; i < LED_COUNT; i++) {
+            if (!hasImageArgs) {
+                break;
+            }
+            hasImageArgs = server.hasArg("led-" + String(i) + "-b");
+        }
+        if (hasImageArgs) {
+            int storageSlot = server.pathArg(0).toInt();
             int memorySlot = -1;
             int angle = server.arg("angle").toInt();
             String filename = "/data/image-" + String(storageSlot) + ".csv";
