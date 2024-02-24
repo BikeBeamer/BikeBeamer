@@ -54,7 +54,7 @@ async function loadImageNames() {
         }
         for (let i = 0; i < STORAGE_SLOT_COUNT; i++) {
             displayModeInput.options[i].label =
-                'Only show slot ' + (i + 1) + ' "' + responseHeaders.get('slot-0') + '"';
+                'Only show slot ' + (i + 1) + ' "' + responseHeaders.get('slot-' + i) + '"';
             displayModeInput.options[i + STORAGE_SLOT_COUNT].label =
                 'Animate through slots ' +
                 (i + 1) +
