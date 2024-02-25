@@ -86,14 +86,14 @@ Below is a full bill of materials with German sources for all required non-print
 | 2 | LED strip (144 LEDs/m) | [Amazon](https://www.amazon.de/dp/B08JJ6S1HC) |
 | 12 | Battery holder | [RS Components](https://de.rs-online.com/web/p/batteriehalter/6119576) OR [Amazon](https://www.amazon.de/AA-Batteriehalter-KUOQIY-Batteriehalter-Drahtkabeln-Schraubendreher/dp/B0C2Q6JV88) |
 | 4 | Power switch | [RS Components](https://de.rs-online.com/web/p/schiebeschalter/7347334) OR [Amazon](https://www.amazon.de/RUNCCI-YUN-Schiebeschalter-Positionen-Vertikal-Schalter/dp/B09TVDZ8P2) |
-| 4 | Reverse-voltage diode (1N5820) | [RS Components](https://de.rs-online.com/web/p/schottky-dioden-und-gleichrichter/6547224) OR [Amazon](https://www.amazon.de/ALLECIN-1N5820-Schottky-Gleichrichterdiode-Siliziumdioden/dp/B0CKSH71TP) |
 | 12 | Power smoothing capacitor (1000μF) | [RS Components](https://de.rs-online.com/web/p/aluminium-elektrolytkondensatoren/1815420) OR [Amazon](https://www.amazon.de/Kondensator-radial-1000%C2%B5F-RJF-10V102MH4-1000uF/dp/B07H9BFK31) |
+| 4 | Reverse-voltage diode (1N5820) | [RS Components](https://de.rs-online.com/web/p/schottky-dioden-und-gleichrichter/6547224) OR [Amazon](https://www.amazon.de/ALLECIN-1N5820-Schottky-Gleichrichterdiode-Siliziumdioden/dp/B0CKSH71TP) |
 | 6 | Screw terminal | [RS Components](https://de.rs-online.com/web/p/leiterplatten-printklemmen/1731613) OR [Amazon](https://www.amazon.de/RUNCCI-St%C3%BCcke-Terminal-Schraubklemme-Steckverbinder/dp/B07RR7D267) |
 | 6 | JST SM 3 pin cable | [Amazon](https://www.amazon.de/YIXISI-M%C3%A4nnlichen-Weiblichen-Steckverbinder-Elektrisch/dp/B08JV8TJ9N) |
-| 15 | Cable ties | [Amazon](https://www.amazon.de/Kabelbinder-Rscolila-Hochleistungs-Kabelmanagement-300mmx5mm/dp/B08ZC7PBSD) |
 | 12 | AA battery | [Amazon](https://www.amazon.de/Varta-Industrial-Batterie-Alkaline-Batterien-blau/dp/B00LN803LE) |
+| 15 | Cable ties | [Amazon](https://www.amazon.de/Kabelbinder-Rscolila-Hochleistungs-Kabelmanagement-300mmx5mm/dp/B09MVKD5YX) |
 | 1 | Duck tape | [Amazon](https://www.amazon.de/3M-Gewebeklebeband-1900-Schwarz-1-er/dp/B006MKBVNM) |
-| 3 | Instant glue | [Amazon](https://www.amazon.de/UHU-Sekundenkleber-blitzschnell-original-versiegelte/dp/B06WVTZYWF) |
+| 3 | Instant glue | [Amazon](https://www.amazon.de/Uhu-45415-Sekundenkleber-Blitzschnell-fl%C3%BCssig/dp/B001IVZMBM) |
 | 1 | Plexiglas sheet | [Amazon](https://www.amazon.de/Langaelex-transparentes-Plexiglasscheibe-Ersatzglas-Projektausstellung/dp/B0CL93YGQ2) |
 | 18 | Wire ferrules | [Amazon](https://www.amazon.de/BAURIX-Aderendh%C3%BClsen-Sortiment-Isolierte-sortiert/dp/B07R6N5MGC) |
 
@@ -140,6 +140,7 @@ Below is a full bill of materials with German sources for all required non-print
 - All coordinate systems used have their origin at the bottom left
 - The PCBs are mounted with the back side visible when looking at the left side of the bike and connected in clockwise direction
 - All indexes in the code are zero-based, while all user interfaces and visualisations use regular one-based numbering
+- All API communication is done through HTTP headers for the sake of easy parsing in the front- and backend
 
 ### Mounting visualisation
 
