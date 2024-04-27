@@ -121,7 +121,7 @@ Below is a full bill of materials with German sources for all required non-print
 
     ![Mounted boards front](mounted-front.jpeg)
 
-    ![Mounted boards front close-up](mounted-fornt-close-up.jpeg)
+    ![Mounted boards front close-up](mounted-front-close-up.jpeg)
 
     ![Mounted boards back](mounted-back.jpeg)
 
