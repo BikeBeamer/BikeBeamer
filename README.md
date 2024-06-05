@@ -159,7 +159,7 @@ Below is a full bill of materials with German sources for all required non-print
 - [x] Get stored settings: GET /api/settings
 - [X] Update settings: PUT /api/settings
 
-### Images
+#### Images
 
 - [x] Get image names: GET /api/images
 - [X] Update image: PUT /api/images/{slot}
