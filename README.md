@@ -2,11 +2,10 @@
 
 ## Overview
 
-> This is a **work in progress**. Things aren't final and are due to change over time.
-
 ![Overview image](overview.png)
 
-This is my next generation of bike POV displays based on [bkpvdsply](https://github.com/locxter/bkpvdsply). With much extended functionality, a more polished design and an easier user-experience, the goal for it is to extend my capabilities and experiment with building a "real product" that lives up to the expectations one might have.
+This is my next generation of bike POV displays based on [bkpvdsply](https://github.com/locxter/bkpvdsply). With much extended functionality, a more polished design and an easier user-experience, the goal for it is to extend my capabilities and experiment with building a "real product" that lives up to the expectations one might have. Also take a look at the [project website](https://bikebeamer.com).
+
 
 ## Dependencies
 
@@ -79,7 +78,7 @@ Even though many sequences of assembly will result in functional boards, here's 
 
 Below is a full bill of materials with German sources for all required non-printable parts:
 
-| Quantity (not necessarly the order quantity): | Item: | Source: |
+| Quantity (not necessarily the order quantity): | Item: | Source: |
 | --- | --- | --- |
 | 1 | ESP32 D1 Mini | [Amazon](https://www.amazon.de/dp/B08BTLYSTM) |
 | 1 | MPU-6050 | [Amazon](https://www.amazon.de/AZDelivery-MPU-6050-3-Achsen-Gyroskop-Beschleunigungssensor-Arduino/dp/B07TKLYBD6) |
