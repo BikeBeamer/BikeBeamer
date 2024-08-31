@@ -114,6 +114,8 @@ Below is a full bill of materials with German sources for all required non-print
 
     [Loose boards in action](loose-in-action.mp4)
 
+    https://github.com/BikeBeamer/BikeBeamer/raw/main/loose-in-action.mp4
+
     ![Loose boards in action still](loose-in-action-still.jpeg)
 
 8. Mount it on your bike with some cable ties like this:
@@ -131,6 +133,9 @@ Below is a full bill of materials with German sources for all required non-print
 7. Then just hop on your bike and enjoy the glory of this next generation POV display. Here's just some inspiration:
 
     [Mounted boards in action](mounted-in-action.mp4)
+
+    https://github.com/BikeBeamer/BikeBeamer/raw/main/mounted-in-action.mp4
+
     ![Mounted boards in action still](mounted-in-action-still.jpeg)
 
 ## Developer notes
