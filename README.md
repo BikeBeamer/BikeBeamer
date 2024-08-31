@@ -114,7 +114,11 @@ Below is a full bill of materials with German sources for all required non-print
 
     [Loose boards in action](loose-in-action.mp4)
 
-    https://github.com/BikeBeamer/BikeBeamer/raw/main/loose-in-action.mp4
+    
+    <video muted autoplay loop>
+        <source src="https://github.com/BikeBeamer/BikeBeamer/raw/main/loose-in-action.mp4" type="video/mp4" />
+        Loose boards in action
+    </video>
 
     ![Loose boards in action still](loose-in-action-still.jpeg)
 
@@ -134,7 +138,10 @@ Below is a full bill of materials with German sources for all required non-print
 
     [Mounted boards in action](mounted-in-action.mp4)
 
-    https://github.com/BikeBeamer/BikeBeamer/raw/main/mounted-in-action.mp4
+    <video muted autoplay loop>
+        <source src="https://github.com/BikeBeamer/BikeBeamer/raw/main/mounted-in-action.mp4" type="video/mp4" />
+        Mounted boards in action
+    </video>
 
     ![Mounted boards in action still](mounted-in-action-still.jpeg)
 
