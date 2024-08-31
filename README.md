@@ -114,15 +114,11 @@ Below is a full bill of materials with German sources for all required non-print
 
     [Loose boards in action](loose-in-action.mp4)
 
-    
-    <video muted autoplay loop>
-        <source src="https://github.com/BikeBeamer/BikeBeamer/raw/main/loose-in-action.mp4" type="video/mp4" />
-        Loose boards in action
-    </video>
+    https://github.com/user-attachments/assets/22288a13-f305-4ee8-a11e-b3bcc51daa01
 
     ![Loose boards in action still](loose-in-action-still.jpeg)
 
-8. Mount it on your bike with some cable ties like this:
+9. Mount it on your bike with some cable ties like this:
 
     ![Mounted boards front](mounted-front.jpeg)
 
@@ -138,10 +134,7 @@ Below is a full bill of materials with German sources for all required non-print
 
     [Mounted boards in action](mounted-in-action.mp4)
 
-    <video muted autoplay loop>
-        <source src="https://github.com/BikeBeamer/BikeBeamer/raw/main/mounted-in-action.mp4" type="video/mp4" />
-        Mounted boards in action
-    </video>
+    https://github.com/user-attachments/assets/4a3be52c-16f3-4a09-bf7f-77527c5345b7
 
     ![Mounted boards in action still](mounted-in-action-still.jpeg)
 
