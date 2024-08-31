@@ -118,7 +118,7 @@ Below is a full bill of materials with German sources for all required non-print
 
     ![Loose boards in action still](loose-in-action-still.jpeg)
 
-9. Mount it on your bike with some cable ties like this:
+8. Mount it on your bike with some cable ties like this:
 
     ![Mounted boards front](mounted-front.jpeg)
 
@@ -130,7 +130,7 @@ Below is a full bill of materials with German sources for all required non-print
 
     ![Encased mounted boards back](encased-mounted-back.jpg)
 
-7. Then just hop on your bike and enjoy the glory of this next generation POV display. Here's just some inspiration:
+9. Then just hop on your bike and enjoy the glory of this next generation POV display. Here's just some inspiration:
 
     [Mounted boards in action](mounted-in-action.mp4)
 
