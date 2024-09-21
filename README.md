@@ -4,19 +4,9 @@
 
 ![Overview image](overview.png)
 
-This is my next generation of bike POV displays based on [bkpvdsply](https://github.com/locxter/bkpvdsply). With much extended functionality, a more polished design and an easier user-experience, the goal for it is to extend my capabilities and experiment with building a "real product" that lives up to the expectations one might have. Also take a look at the [project website](https://bikebeamer.com).
+This is my next generation of bike POV displays based on [bkpvdsply](https://github.com/locxter/bkpvdsply). With much extended functionality, a more polished design and an easier user-experience, the goal for it is to extend my capabilities and experiment with building a "real product" that lives up to the expectations one might have. Also take a look at the [project website](https://bikebeamer.com) or the launch video:
 
-<iframe
-    width="800"
-    height="450"
-    src="https://www.youtube-nocookie.com/embed/l9HWCyl2cUI?si=sPYNPNXQLM1HhLO-"
-    title="Introducing BikeBeamer - The next generation bike POV display"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-></iframe>
-
+[![Introducing BikeBeamer - The next generation bike POV display](https://img.youtube.com/vi/l9HWCyl2cUI/maxresdefault.jpg)](https://www.youtube.com/watch?v=l9HWCyl2cUI)
 
 ## Dependencies
 
