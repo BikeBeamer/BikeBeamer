@@ -13,9 +13,21 @@ This is my next generation of bike POV displays based on [bkpvdsply](https://git
 I generally try to minimize dependencies, but I'm a one man crew and can therefore only support Debian-based Linux distributions as I'm running one myself. Anyway, you need to have the following packages installed for everything to work properly:
 
 - Arduino IDE as a way to compile the Arduino code. Install it with `sudo apt install arduino`.
-- Arduino ESP32 LittleFS uploader for uploading the data. Install it via the [installation guide](https://github.com/lorol/arduino-esp32fs-plugin).
-- Adafruit NeoPixel library for controlling the LEDs. Install it via the integrated library manager.
 - MPU6050_tockn library for communicating with the gyroscope. Install it via the integrated library manager.
+- Adafruit NeoPixel library for controlling the LEDs. Install it via the integrated library manager.
+
+Note there is an [issue with the ESP32 core library >=3.x and the NeoPixel library when using more than 75 pixels](https://github.com/adafruit/Adafruit_NeoPixel/issues/402). There is a [forked library with a fix](https://github.com/teknynja/Adafruit_NeoPixel/tree/esp32_rmt_memory_allocation_fix_safe).
+
+There some slight differences, depending on which major version of the Arduino IDE you are using. Extensions are not compatible with both versions. An extension is needed for uploading the data to the ESP32 LittleFS.
+
+### Arduino IDE 1.x
+
+Use the Arduino ESP32 LittleFS uploader for uploading the data. Install it via the [installation guide](https://github.com/lorol/arduino-esp32fs-plugin).
+
+### Arduino IDE 2.x
+
+Use the [Arduino LittleFS upload extension](https://github.com/earlephilhower/arduino-littlefs-upload).
+
 
 ## Improvements over bkpvdsply
 
